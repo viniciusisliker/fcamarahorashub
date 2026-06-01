@@ -10,18 +10,25 @@ Stack alvo (mesmo nome em todos os serviços):
 
 ## 1. GitHub
 
+Commits locais já existem em `C:\dev\fcamarahorashub` (branch `main`).
+
+```powershell
+gh auth login
+cd C:\dev\fcamarahorashub
+.\scripts\deploy-github.ps1
+```
+
+Ou manualmente:
+
 ```bash
-git init
-git add .
-git commit -m "feat: hub de apontamentos — design v0.1"
-git branch -M main
-git remote add origin https://github.com/<org>/fcamarahorashub.git
-git push -u origin main
+gh repo create fcamarahorashub --public --source=. --remote=origin --push
 ```
 
 ## 2. Supabase
 
-1. Criar/confirmar projeto **fcamarahorashub** no [dashboard](https://supabase.com/dashboard).
+> **Cota free:** se aparecer erro de limite de projetos, pause ou exclua um projeto antigo no [dashboard](https://supabase.com/dashboard) antes de criar **fcamarahorashub**.
+
+1. Criar projeto **fcamarahorashub** no [dashboard](https://supabase.com/dashboard) (região `sa-east-1` recomendada).
 2. Instalar CLI: `npm i -g supabase` (ou usar MCP Supabase no Cursor).
 3. Vincular: `supabase link --project-ref <project-ref>`
 4. Aplicar migrations: `supabase db push`
