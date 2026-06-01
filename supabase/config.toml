@@ -3,8 +3,7 @@
 #   supabase link --project-ref <ref>
 #   supabase db push
 
-# Substitua após: supabase link --project-ref <ref-do-fcamarahorashub>
-# project_id = "<ref>"
+project_id = "kjfwstmxldxbbuwmjtji"
 
 [api]
 enabled = true
