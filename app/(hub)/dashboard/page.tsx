@@ -23,7 +23,7 @@ import { HoursChart } from "@/components/hub/hours-chart";
 import { KpiCard } from "@/components/hub/kpi-card";
 import { StatusBadge } from "@/components/hub/status-badge";
 import { usePeriod } from "@/components/layout/period-context";
-import { APONTAMENTOS_MOCK } from "@/lib/mock/apontamentos";
+import { useApontamentos } from "@/lib/hooks/use-apontamentos";
 import {
   countByStatus,
   countColaboradoresComLancamento,
@@ -36,10 +36,11 @@ import {
 
 export default function DashboardPage() {
   const { inicio, fim } = usePeriod();
+  const { apontamentos, loading } = useApontamentos();
 
   const periodoItems = useMemo(
-    () => filterByPeriodo(APONTAMENTOS_MOCK, inicio, fim),
-    [inicio, fim]
+    () => filterByPeriodo(apontamentos, inicio, fim),
+    [apontamentos, inicio, fim]
   );
 
   const pendentes = useMemo(
@@ -55,6 +56,19 @@ export default function DashboardPage() {
     () => horasPorDia(periodoItems).map((d) => ({ label: d.label, horas: d.horas })),
     [periodoItems]
   );
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-10 w-48 animate-pulse rounded-lg bg-muted" />
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-32 animate-pulse rounded-xl bg-muted" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

@@ -9,20 +9,22 @@ import { ApontamentosFiltersBar } from "@/components/hub/apontamentos-filters";
 import { ApontamentosTable } from "@/components/hub/apontamentos-table";
 import { usePeriod } from "@/components/layout/period-context";
 import {
+  getColaboradoresFromItems,
+  getProjetosFromItems,
+} from "@/lib/apontamentos/catalog";
+import {
   filterApontamentos,
   type ApontamentosFilters,
 } from "@/lib/apontamentos/filters";
-import {
-  APONTAMENTOS_MOCK,
-  getColaboradoresFromMock,
-  getProjetosFromMock,
-} from "@/lib/mock/apontamentos";
+import { useApontamentos } from "@/lib/hooks/use-apontamentos";
 import type { Apontamento, StatusApontamento } from "@/lib/types/apontamento";
 
 const PAGE_SIZE = 10;
 
 export function ApontamentosPageContent() {
   const { inicio, fim } = usePeriod();
+  const { apontamentos: allApontamentos, loading: dataLoading } =
+    useApontamentos();
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status") as StatusApontamento | null;
 
@@ -39,7 +41,6 @@ export function ApontamentosPageContent() {
   }));
 
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Apontamento | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -57,22 +58,24 @@ export function ApontamentosPageContent() {
   }, [statusParam]);
 
   useEffect(() => {
-    setLoading(true);
-    const t = setTimeout(() => setLoading(false), 400);
-    return () => clearTimeout(t);
-  }, [filters, page]);
-
-  useEffect(() => {
     setPage(1);
   }, [filters]);
 
-  const colaboradores = useMemo(() => getColaboradoresFromMock(), []);
-  const projetos = useMemo(() => getProjetosFromMock(), []);
+  const colaboradores = useMemo(
+    () => getColaboradoresFromItems(allApontamentos),
+    [allApontamentos]
+  );
+  const projetos = useMemo(
+    () => getProjetosFromItems(allApontamentos),
+    [allApontamentos]
+  );
 
   const filtered = useMemo(
-    () => filterApontamentos(APONTAMENTOS_MOCK, filters),
-    [filters]
+    () => filterApontamentos(allApontamentos, filters),
+    [allApontamentos, filters]
   );
+
+  const loading = dataLoading;
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = useMemo(() => {

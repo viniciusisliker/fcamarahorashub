@@ -5,8 +5,8 @@ Stack alvo (mesmo nome em todos os serviços):
 | Serviço | Nome do projeto | Função |
 |---------|-----------------|--------|
 | **GitHub** | `fcamarahorashub` | Repositório e CI |
-| **Vercel** | `fcamarahorashub` | Hosting Next.js |
-| **Supabase** | `fcamarahorashub` | Postgres, Auth (futuro), API |
+| **Vercel** | `fcamarahorashub` | Team **Vinicius Isliker's projects** — `prj_N2WRxmWV9jEBpa7W4NBL1QXKKqJe` |
+| **Supabase** | `fcamarahorashub` | Ref `kjfwstmxldxbbuwmjtji` — org FCamara |
 
 ## 1. GitHub
 
