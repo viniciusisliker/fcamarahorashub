@@ -1,0 +1,12 @@
+# Projeto alvo: fcamarahorashub
+# Após criar o projeto no dashboard (ou liberar cota free), execute:
+#   supabase link --project-ref <ref>
+#   supabase db push
+
+project_id = "prhijmkvsgqusivmnqzx"
+
+[api]
+enabled = true
+
+[db]
+major_version = 17
