@@ -95,7 +95,7 @@ export default function DashboardPage() {
           <div className="space-y-2">
             <p className="flex items-center gap-2 text-sm font-medium text-primary">
               <Sparkles className="h-4 w-4" aria-hidden />
-              {getGreeting()}, Gestor
+              {getGreeting()}
             </p>
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
               Sua equipe em{" "}

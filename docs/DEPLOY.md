@@ -64,7 +64,7 @@ Opcional: instalar integração [Supabase no Vercel Marketplace](https://vercel.
 
 ## 5. Checklist pós-deploy
 
-- [ ] `/login` → Entrar → `/dashboard`
+- [ ] `/` e `/login` redirecionam para `/dashboard`
 - [ ] KPIs e gráfico carregam
 - [ ] `/apontamentos` filtros e paginação
 - [ ] Com `NEXT_PUBLIC_USE_MOCK_DATA=false`, dados vêm do Supabase

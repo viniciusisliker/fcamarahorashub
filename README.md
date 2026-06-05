@@ -26,7 +26,7 @@ Abra [http://localhost:3000](http://localhost:3000) → redireciona para `/dashb
 
 | Rota | Descrição |
 |------|-----------|
-| `/login` | Entrada mock (sem auth real) |
+| `/` | Redireciona para `/dashboard` |
 | `/dashboard` | KPIs e gráfico |
 | `/apontamentos` | Tabela com filtros e detalhe |
 
