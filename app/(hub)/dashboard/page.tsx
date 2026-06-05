@@ -29,6 +29,7 @@ import {
   sumHoras,
 } from "@/lib/apontamentos/stats";
 import type { StatusApontamento } from "@/lib/types/apontamento";
+import { cn } from "@/lib/utils";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -73,13 +74,16 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="h-28 animate-pulse rounded-[var(--radius-card)] bg-white/60" />
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="space-y-5 lg:space-y-8">
+        <div className="h-24 animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-28" />
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="h-[132px] animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-[140px]"
+              className={cn(
+                "h-[108px] animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-[132px] lg:h-[140px]",
+                i === 0 && "col-span-2 xl:col-span-1"
+              )}
             />
           ))}
         </div>
@@ -88,26 +92,26 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-8">
-      <section className="animate-fade-up relative overflow-hidden rounded-[20px] border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-8">
+    <div className="space-y-5 lg:space-y-8">
+      <section className="animate-fade-up relative overflow-hidden rounded-[var(--radius-card)] border border-border/60 bg-white/80 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:rounded-[20px] lg:p-8">
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-2">
-            <p className="flex items-center gap-2 text-sm font-medium text-primary">
-              <Sparkles className="h-4 w-4" aria-hidden />
+        <div className="relative flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-1.5 sm:space-y-2">
+            <p className="flex items-center gap-2 text-xs font-medium text-primary sm:text-sm">
+              <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
               {getGreeting()}
             </p>
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
               Sua equipe em{" "}
               <span className="gradient-text">tempo real</span>
             </h1>
-            <p className="max-w-xl text-muted-foreground">
+            <p className="max-w-xl text-sm text-muted-foreground sm:text-base">
               {periodoItems.length} apontamentos no período ·{" "}
               {formatHoras(totalHoras)} registradas ·{" "}
               {statusCounts.pendente} aguardando aprovação
             </p>
           </div>
-          <Button className="shrink-0 rounded-full px-6 shadow-lg shadow-primary/25" asChild>
+          <Button className="w-full shrink-0 rounded-full px-6 shadow-lg shadow-primary/25 sm:w-auto" asChild>
             <Link href="/apontamentos">
               Ver apontamentos
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -116,9 +120,9 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <KpiCard
-          className="animate-fade-up-delay-1"
+          className="animate-fade-up-delay-1 col-span-2 xl:col-span-1"
           title="Total de horas"
           value={formatHoras(totalHoras)}
           description="No período selecionado"
@@ -153,12 +157,12 @@ export default function DashboardPage() {
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-6 shadow-[var(--shadow-card)] backdrop-blur-sm lg:col-span-8">
-          <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
+        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-8">
+          <div className="mb-4 flex items-start justify-between gap-4 sm:mb-6">
             <div>
-              <h2 className="text-lg font-bold tracking-tight">Horas por dia</h2>
-              <p className="text-sm text-muted-foreground">
+              <h2 className="text-base font-bold tracking-tight sm:text-lg">Horas por dia</h2>
+              <p className="text-xs text-muted-foreground sm:text-sm">
                 Evolução diária no período · destaque no pico
               </p>
             </div>
@@ -166,25 +170,25 @@ export default function DashboardPage() {
           <HoursChart data={chartData} />
         </div>
 
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-6 shadow-[var(--shadow-card)] backdrop-blur-sm lg:col-span-4">
-          <h2 className="text-lg font-bold tracking-tight">Distribuição</h2>
-          <p className="mb-6 text-sm text-muted-foreground">Status dos apontamentos</p>
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-4">
+          <h2 className="text-base font-bold tracking-tight sm:text-lg">Distribuição</h2>
+          <p className="mb-4 text-xs text-muted-foreground sm:mb-6 sm:text-sm">Status dos apontamentos</p>
+          <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-6">
             <StatusRing counts={statusCounts} total={periodoItems.length} />
             <StatusLegend counts={statusCounts} />
           </div>
         </div>
       </div>
 
-      <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-6 shadow-[var(--shadow-card)] backdrop-blur-sm">
-        <div className="mb-6 flex items-center justify-between gap-4">
+      <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6">
+        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <div>
-            <h2 className="text-lg font-bold tracking-tight">Fila de aprovação</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="text-base font-bold tracking-tight sm:text-lg">Fila de aprovação</h2>
+            <p className="text-xs text-muted-foreground sm:text-sm">
               Últimos pendentes que precisam da sua atenção
             </p>
           </div>
-          <Button variant="outline" size="sm" className="rounded-full" asChild>
+          <Button variant="outline" size="sm" className="w-full rounded-full sm:w-auto" asChild>
             <Link href="/apontamentos?status=pendente">
               Ver todos
               <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
@@ -201,7 +205,7 @@ export default function DashboardPage() {
             {pendentes.map((a) => (
               <div
                 key={a.id}
-                className="group rounded-xl border border-border/80 bg-gradient-to-br from-white to-muted/20 p-4 transition-all hover:border-primary/30 hover:shadow-md"
+                className="group rounded-xl border border-border/80 bg-gradient-to-br from-white to-muted/20 p-3.5 transition-all sm:p-4 lg:hover:border-primary/30 lg:hover:shadow-md"
               >
                 <div className="mb-3 flex items-start justify-between gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">

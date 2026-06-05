@@ -14,7 +14,7 @@ interface StatusRingProps {
 export function StatusRing({ counts, total }: StatusRingProps) {
   if (total === 0) {
     return (
-      <div className="flex h-36 w-36 items-center justify-center rounded-full border border-dashed border-border text-xs text-muted-foreground">
+      <div className="flex h-28 w-28 items-center justify-center rounded-full border border-dashed border-border text-xs text-muted-foreground sm:h-36 sm:w-36">
         Sem dados
       </div>
     );
@@ -32,14 +32,14 @@ export function StatusRing({ counts, total }: StatusRingProps) {
   )`;
 
   return (
-    <div className="relative flex h-36 w-36 items-center justify-center">
+    <div className="relative flex h-28 w-28 shrink-0 items-center justify-center sm:h-36 sm:w-36">
       <div
         className="absolute inset-0 rounded-full opacity-90"
         style={{ background: gradient }}
       />
-      <div className="relative flex h-[104px] w-[104px] flex-col items-center justify-center rounded-full bg-white shadow-inner">
-        <span className="text-2xl font-extrabold tracking-tight">{total}</span>
-        <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+      <div className="relative flex h-[76px] w-[76px] flex-col items-center justify-center rounded-full bg-white shadow-inner sm:h-[104px] sm:w-[104px]">
+        <span className="text-xl font-extrabold tracking-tight sm:text-2xl">{total}</span>
+        <span className="text-[9px] font-medium uppercase tracking-wider text-muted-foreground sm:text-[10px]">
           registros
         </span>
       </div>
@@ -59,7 +59,7 @@ export function StatusLegend({
   ];
 
   return (
-    <ul className="space-y-2.5">
+    <ul className="w-full space-y-2 sm:w-auto sm:space-y-2.5">
       {items.map(({ key, label, color }) => (
         <li key={key} className="flex items-center justify-between gap-4 text-sm">
           <span className="flex items-center gap-2 text-muted-foreground">

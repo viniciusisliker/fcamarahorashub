@@ -94,13 +94,13 @@ export function ApontamentosPageContent() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <PageHeader
         eyebrow="Registros"
         title="Apontamentos"
         description="Consulte, filtre e analise os lançamentos de horas da equipe."
         action={
-          <Button variant="outline" disabled className="shrink-0 gap-2 rounded-full">
+          <Button variant="outline" disabled className="w-full shrink-0 gap-2 rounded-full sm:w-auto">
             <Download className="h-4 w-4" aria-hidden />
             Exportar (em breve)
           </Button>
@@ -126,11 +126,11 @@ export function ApontamentosPageContent() {
       />
 
       {filtered.length > 0 && !loading ? (
-        <div className="flex items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-center text-sm text-muted-foreground sm:text-left">
             Página {page} de {totalPages}
           </p>
-          <div className="flex gap-2">
+          <div className="flex justify-center gap-2 sm:justify-end">
             <Button
               variant="outline"
               size="sm"

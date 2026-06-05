@@ -54,10 +54,10 @@ export function ApontamentosTable({
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)] border border-border/80 bg-white/90 shadow-[var(--shadow-card)]">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[760px] text-sm">
+        <table className="w-full min-w-[580px] text-sm">
           <thead>
             <tr className="border-b border-border/80 bg-muted/40">
-              <th scope="col" className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <th scope="col" className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:px-5 sm:py-4">
                 Colaborador
               </th>
               <th scope="col" className="hidden px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground md:table-cell">
@@ -69,7 +69,7 @@ export function ApontamentosTable({
               <th scope="col" className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Horas
               </th>
-              <th scope="col" className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <th scope="col" className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:px-5 sm:py-4">
                 Status
               </th>
               <th scope="col" className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -86,7 +86,7 @@ export function ApontamentosTable({
                   i % 2 === 0 && "bg-white/50"
                 )}
               >
-                <td className="px-5 py-4">
+                <td className="px-3 py-3 sm:px-5 sm:py-4">
                   <div className="flex items-center gap-3">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/15 to-primary/5 text-xs font-bold text-primary ring-1 ring-primary/10">
                       {initials(a.colaboradorNome)}
@@ -111,7 +111,7 @@ export function ApontamentosTable({
                     {formatHoras(a.horas)}
                   </span>
                 </td>
-                <td className="px-5 py-4">
+                <td className="px-3 py-3 sm:px-5 sm:py-4">
                   <StatusBadge status={a.status} />
                 </td>
                 <td className="px-5 py-4 text-right">

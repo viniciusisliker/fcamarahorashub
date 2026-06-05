@@ -17,7 +17,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   const mesLabel = format(inicio, "MMMM yyyy", { locale: ptBR });
 
   return (
-    <header className="sticky top-0 z-30 flex h-[72px] shrink-0 items-center gap-4 border-b border-border/60 bg-white/60 px-4 backdrop-blur-xl lg:px-8">
+    <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-2 border-b border-border/60 bg-white/60 px-3 backdrop-blur-xl sm:gap-3 sm:px-4 lg:h-[72px] lg:gap-4 lg:px-8">
       <Button
         variant="ghost"
         size="icon"
