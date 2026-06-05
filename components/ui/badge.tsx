@@ -11,11 +11,11 @@ const badgeVariants = cva(
           "border-transparent bg-secondary text-secondary-foreground",
         outline: "text-foreground",
         success:
-          "border-transparent bg-emerald-50 text-[var(--fcamara-success)]",
+          "border-transparent bg-emerald-50 text-[var(--ftime-success)]",
         warning:
-          "border-transparent bg-amber-50 text-[var(--fcamara-warning)]",
+          "border-transparent bg-amber-50 text-[var(--ftime-warning)]",
         danger:
-          "border-transparent bg-red-50 text-[var(--fcamara-danger)]",
+          "border-transparent bg-red-50 text-[var(--ftime-danger)]",
       },
     },
     defaultVariants: {

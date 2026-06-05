@@ -2,15 +2,12 @@ const usingMock = process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-border bg-[var(--fcamara-dark)] px-4 py-4 text-center text-xs text-white/70 lg:px-6">
-      <p>
-        FTimeHub · v0.1.0
-      </p>
-      <p className="mt-1 text-white/50">
-        © FTimeHub —{" "}
+    <footer className="border-t border-border/60 bg-white/40 px-4 py-5 text-center backdrop-blur-sm lg:px-8">
+      <p className="text-xs font-medium text-foreground/80">FTimeHub · v0.2.0</p>
+      <p className="mt-1 text-[11px] text-muted-foreground">
         {usingMock
-          ? "dados mockados para demonstração"
-          : "dados em tempo real via Supabase"}
+          ? "Modo demonstração — dados simulados"
+          : "Dados sincronizados em tempo real"}
       </p>
     </footer>
   );

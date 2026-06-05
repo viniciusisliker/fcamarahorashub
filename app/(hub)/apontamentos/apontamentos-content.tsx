@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/layout/page-header";
 import { ApontamentoDetailSheet } from "@/components/hub/apontamento-detail-sheet";
 import { ApontamentosFiltersBar } from "@/components/hub/apontamentos-filters";
 import { ApontamentosTable } from "@/components/hub/apontamentos-table";
@@ -94,18 +95,17 @@ export function ApontamentosPageContent() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Apontamentos</h1>
-          <p className="mt-1 text-muted-foreground">
-            Consulte e filtre os lançamentos de horas dos colaboradores.
-          </p>
-        </div>
-        <Button variant="outline" disabled className="shrink-0 gap-2">
-          <Download className="h-4 w-4" aria-hidden />
-          Exportar (em breve)
-        </Button>
-      </div>
+      <PageHeader
+        eyebrow="Registros"
+        title="Apontamentos"
+        description="Consulte, filtre e analise os lançamentos de horas da equipe."
+        action={
+          <Button variant="outline" disabled className="shrink-0 gap-2 rounded-full">
+            <Download className="h-4 w-4" aria-hidden />
+            Exportar (em breve)
+          </Button>
+        }
+      />
 
       <ApontamentosFiltersBar
         filters={filters}
@@ -114,8 +114,9 @@ export function ApontamentosPageContent() {
         projetos={projetos}
       />
 
-      <p className="text-sm text-muted-foreground">
-        {filtered.length} registro(s) encontrado(s)
+      <p className="text-sm font-medium text-muted-foreground">
+        <span className="font-bold text-foreground">{filtered.length}</span> registro(s)
+        encontrado(s)
       </p>
 
       <ApontamentosTable
@@ -133,6 +134,7 @@ export function ApontamentosPageContent() {
             <Button
               variant="outline"
               size="sm"
+              className="rounded-full"
               disabled={page <= 1}
               onClick={() => setPage((p) => p - 1)}
             >
@@ -141,6 +143,7 @@ export function ApontamentosPageContent() {
             <Button
               variant="outline"
               size="sm"
+              className="rounded-full"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
             >

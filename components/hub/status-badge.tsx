@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import type { StatusApontamento } from "@/lib/types/apontamento";
+import { cn } from "@/lib/utils";
 
 const labels: Record<StatusApontamento, string> = {
   aprovado: "Aprovado",
@@ -7,15 +8,27 @@ const labels: Record<StatusApontamento, string> = {
   rejeitado: "Rejeitado",
 };
 
-const variants: Record<
+const config: Record<
   StatusApontamento,
-  "success" | "warning" | "danger"
+  { variant: "success" | "warning" | "danger"; dot: string }
 > = {
-  aprovado: "success",
-  pendente: "warning",
-  rejeitado: "danger",
+  aprovado: { variant: "success", dot: "bg-emerald-500" },
+  pendente: { variant: "warning", dot: "bg-amber-500" },
+  rejeitado: { variant: "danger", dot: "bg-red-500" },
 };
 
-export function StatusBadge({ status }: { status: StatusApontamento }) {
-  return <Badge variant={variants[status]}>{labels[status]}</Badge>;
+export function StatusBadge({
+  status,
+  className,
+}: {
+  status: StatusApontamento;
+  className?: string;
+}) {
+  const { variant, dot } = config[status];
+  return (
+    <Badge variant={variant} className={cn("gap-1.5 pl-2", className)}>
+      <span className={cn("h-1.5 w-1.5 rounded-full", dot)} aria-hidden />
+      {labels[status]}
+    </Badge>
+  );
 }
