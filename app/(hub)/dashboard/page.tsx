@@ -79,7 +79,7 @@ export default function DashboardPage() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="h-36 animate-pulse rounded-[var(--radius-card)] bg-white/60"
+              className="h-[132px] animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-[140px]"
             />
           ))}
         </div>
@@ -116,31 +116,31 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-12">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
-          className="animate-fade-up-delay-1 xl:col-span-5"
+          className="animate-fade-up-delay-1"
           title="Total de horas"
           value={formatHoras(totalHoras)}
-          description="Consolidado no período selecionado"
+          description="No período selecionado"
           icon={Clock}
           variant="featured"
         />
         <KpiCard
-          className="animate-fade-up-delay-1 xl:col-span-2"
+          className="animate-fade-up-delay-1"
           title="Pendentes"
           value={String(statusCounts.pendente)}
           description="Aguardando validação"
           icon={Hourglass}
         />
         <KpiCard
-          className="animate-fade-up-delay-2 xl:col-span-2"
+          className="animate-fade-up-delay-2"
           title="Colaboradores"
           value={String(countColaboradoresComLancamento(periodoItems))}
           description="Com lançamentos"
           icon={Users}
         />
         <KpiCard
-          className="animate-fade-up-delay-3 xl:col-span-3"
+          className="animate-fade-up-delay-3"
           title="Média / dia útil"
           value={formatHoras(mediaHorasPorDiaUtil(periodoItems))}
           description="Produtividade média"
