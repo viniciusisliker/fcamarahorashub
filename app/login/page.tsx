@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,30 +25,30 @@ export default function LoginPage() {
 
       <Card className="relative z-10 w-full max-w-md border-border/80 shadow-[var(--shadow-card)]">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-2xl font-bold text-primary-foreground">
-            F
+          <div className="mx-auto mb-4 flex justify-center">
+            <BrandLogo size="lg" tone="light" />
           </div>
-          <CardTitle className="text-2xl">Hub de Apontamentos</CardTitle>
+          <CardTitle className="text-2xl">Bem-vindo ao FTimeHub</CardTitle>
           <CardDescription>
-            Acesso para gestores e RH — ambiente de demonstração (mock)
+            Gestão de apontamentos de horas para gestores e RH
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-center text-sm text-muted-foreground">
-            O futuro da gestão de horas da sua equipe, com a identidade{" "}
-            <span className="font-medium text-primary">#OrangeTeam</span>.
+            Acompanhe horas, aprovações e produtividade da equipe em um só
+            lugar.
           </p>
           <Button className="w-full" size="lg" asChild>
             <Link href="/dashboard">Entrar</Link>
           </Button>
           <p className="text-center text-xs text-muted-foreground">
-            Sem autenticação real nesta versão de design.
+            Sem autenticação real nesta versão de demonstração.
           </p>
         </CardContent>
       </Card>
 
       <p className="relative z-10 mt-8 text-xs text-muted-foreground">
-        © FCamara — Hub interno v0.1.0
+        © FTimeHub v0.1.0
       </p>
     </div>
   );

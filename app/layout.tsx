@@ -9,9 +9,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hub de Apontamentos | FCamara",
+  title: "FTimeHub — Gestão de Apontamentos",
   description:
-    "Hub para gestores e RH consultarem apontamentos de horas dos colaboradores.",
+    "Plataforma para gestores e RH consultarem apontamentos de horas dos colaboradores.",
 };
 
 export default function RootLayout({

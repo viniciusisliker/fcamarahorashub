@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogo } from "@/components/brand/brand-logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -50,10 +51,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       >
         <div className="flex h-16 items-center justify-between border-b border-white/10 px-4">
           <Link href="/dashboard" className="flex items-center gap-2" onClick={onClose}>
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-sm font-bold">
-              F
-            </span>
-            <span className="font-semibold tracking-tight">FCamara Hub</span>
+            <BrandLogo size="md" tone="dark" />
           </Link>
           <Button
             variant="ghost"
@@ -102,7 +100,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
         <div className="border-t border-white/10 p-4">
           <p className="text-xs text-white/50">
-            #OrangeTeam — visão consolidada para gestores
+            Gestão de horas — visão consolidada para gestores
           </p>
         </div>
       </aside>

@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Calendar, Menu } from "lucide-react";
@@ -29,14 +30,9 @@ export function Header({ onMenuClick }: HeaderProps) {
       </Button>
 
       <div className="flex min-w-0 flex-1 items-center gap-3">
-        <div
-          className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground sm:flex"
-          aria-hidden
-        >
-          F
-        </div>
+        <BrandLogo size="sm" tone="light" showText={false} className="hidden sm:inline-flex" />
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold">Hub de Apontamentos</p>
+          <p className="truncate text-sm font-semibold">FTimeHub</p>
           <p className="truncate text-xs text-muted-foreground capitalize">
             {mesLabel}
           </p>
@@ -60,7 +56,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         <div className="flex items-center gap-2 border-l border-border pl-2">
           <div className="hidden text-right sm:block">
             <p className="text-sm font-medium">Gestor RH</p>
-            <p className="text-xs text-muted-foreground">mock@fcamara.com</p>
+            <p className="text-xs text-muted-foreground">gestor@ftimehub.app</p>
           </div>
           <Avatar>
             <AvatarFallback>GR</AvatarFallback>

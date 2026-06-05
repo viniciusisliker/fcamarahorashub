@@ -4,14 +4,13 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t border-border bg-[var(--fcamara-dark)] px-4 py-4 text-center text-xs text-white/70 lg:px-6">
       <p>
-        Hub de Apontamentos · v0.1.0 ·{" "}
-        <span className="text-primary">#OrangeTeam</span>
+        FTimeHub · v0.1.0
       </p>
       <p className="mt-1 text-white/50">
-        © FCamara —{" "}
+        © FTimeHub —{" "}
         {usingMock
           ? "dados mockados para demonstração"
-          : "dados via Supabase (fcamarahorashub)"}
+          : "dados em tempo real via Supabase"}
       </p>
     </footer>
   );

@@ -27,7 +27,7 @@ const PROJETOS = [
   { projeto: "Data Lake", cliente: "Saúde+ Vida" },
   { projeto: "App Marketplace", cliente: "ShopConnect" },
   { projeto: "Open Banking API", cliente: "FinCore" },
-  { projeto: "Campanha Performance", cliente: "FCamara Interno" },
+  { projeto: "Campanha Performance", cliente: "Interno" },
   { projeto: "Modernização Legado", cliente: "LogiTrans" },
   { projeto: "PoC Inovação", cliente: "Indústria Nova" },
 ];
