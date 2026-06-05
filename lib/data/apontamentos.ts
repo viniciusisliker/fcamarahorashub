@@ -38,6 +38,10 @@ export function useMockData(): boolean {
   return process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false";
 }
 
+export function getDataSource(): "mock" | "supabase" {
+  return useMockData() ? "mock" : "supabase";
+}
+
 export async function getApontamentos(): Promise<Apontamento[]> {
   if (useMockData()) {
     return APONTAMENTOS_MOCK;
@@ -45,6 +49,7 @@ export async function getApontamentos(): Promise<Apontamento[]> {
 
   const supabase = await createClient();
   if (!supabase) {
+    console.warn("[getApontamentos] Supabase não configurado; usando mock.");
     return APONTAMENTOS_MOCK;
   }
 
@@ -57,12 +62,8 @@ export async function getApontamentos(): Promise<Apontamento[]> {
 
   if (error) {
     console.error("[getApontamentos]", error.message);
-    return APONTAMENTOS_MOCK;
+    throw new Error("Falha ao carregar apontamentos do Supabase.");
   }
 
-  if (!data?.length) {
-    return APONTAMENTOS_MOCK;
-  }
-
-  return (data as ApontamentoRow[]).map(mapRow);
+  return (data as ApontamentoRow[] | null)?.map(mapRow) ?? [];
 }

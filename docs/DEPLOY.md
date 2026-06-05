@@ -5,7 +5,7 @@ Stack alvo (mesmo nome em todos os serviços):
 | Serviço | Nome do projeto | Função |
 |---------|-----------------|--------|
 | **GitHub** | `fcamarahorashub` | Repositório e CI |
-| **Vercel** | `fcamarahorashub` | Team **Vinicius Isliker's projects** — `prj_N2WRxmWV9jEBpa7W4NBL1QXKKqJe` |
+| **Vercel** | `fcamarahorashub` | [ftimehub.vercel.app](https://ftimehub.vercel.app) — team **Vinicius Isliker's projects** — `prj_N2WRxmWV9jEBpa7W4NBL1QXKKqJe` |
 | **Supabase** | `fcamarahorashub` | Ref `kjfwstmxldxbbuwmjtji` — org FCamara |
 
 ## 1. GitHub
@@ -45,9 +45,9 @@ Schema inicial: `supabase/migrations/20250601000000_apontamentos.sql`
 
 | Variável | Obrigatória | Descrição |
 |----------|-------------|-----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Sim* | URL do projeto Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sim* | Chave pública |
-| `NEXT_PUBLIC_USE_MOCK_DATA` | Não | `true` = mock; `false` = Supabase |
+| `NEXT_PUBLIC_SUPABASE_URL` | Sim (prod) | `https://kjfwstmxldxbbuwmjtji.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sim (prod) | Chave anon/publishable do projeto |
+| `NEXT_PUBLIC_USE_MOCK_DATA` | Sim | `true` = mock (local/CI); `false` = Supabase (produção) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Não** | Apenas rotas server/admin |
 
 \* Obrigatórias quando `NEXT_PUBLIC_USE_MOCK_DATA=false`.  
@@ -67,7 +67,8 @@ Opcional: instalar integração [Supabase no Vercel Marketplace](https://vercel.
 - [ ] Com `NEXT_PUBLIC_USE_MOCK_DATA=false`, dados vêm do Supabase
 - [ ] RLS validado para perfil gestor/RH (fase auth)
 
-## Estado atual (fase design)
+## Estado atual
 
-- UI completa com **dados mock**.
-- Schema Supabase **preparado**, consumo real na **próxima fase** (`lib/data/apontamentos.ts`).
+- UI completa; **produção** consome Supabase quando `NEXT_PUBLIC_USE_MOCK_DATA=false`.
+- Local/CI usam mock por padrão (`NEXT_PUBLIC_USE_MOCK_DATA=true`).
+- Schema + seed: `supabase/migrations/` (5 registros demo).
