@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Footer } from "./footer";
 import { Header } from "./header";
 import { PeriodProvider } from "./period-context";
 import { Sidebar } from "./sidebar";
@@ -18,7 +17,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <main className="flex-1 overflow-x-hidden px-3 py-4 sm:px-4 sm:py-6 lg:px-8 lg:py-8">
             {children}
           </main>
-          <Footer />
         </div>
       </div>
     </PeriodProvider>
