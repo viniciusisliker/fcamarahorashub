@@ -5,7 +5,7 @@ Stack alvo (mesmo nome em todos os serviços):
 | Serviço | Nome do projeto | Função |
 |---------|-----------------|--------|
 | **GitHub** | `fcamarahorashub` | Repositório e CI |
-| **Vercel** | `fcamarahorashub` | [ftimehub.vercel.app](https://ftimehub.vercel.app) — team **Vinicius Isliker's projects** — `prj_N2WRxmWV9jEBpa7W4NBL1QXKKqJe` |
+| **Vercel** | `fcamarahorashub` | [ftimesheethub.vercel.app](https://ftimesheethub.vercel.app) — team **Vinicius Isliker's projects** — `prj_N2WRxmWV9jEBpa7W4NBL1QXKKqJe` |
 | **Supabase** | `fcamarahorashub` | Ref `kjfwstmxldxbbuwmjtji` — org FCamara |
 
 ## 1. GitHub

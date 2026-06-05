@@ -5,7 +5,7 @@ Hub web para gestores e RH consultarem apontamentos de horas dos colaboradores.
 ## Stack
 
 - **Next.js 16** (App Router) + TypeScript + Tailwind CSS v4
-- **Deploy:** [Vercel](https://vercel.com) — [ftimehub.vercel.app](https://ftimehub.vercel.app)
+- **Deploy:** [Vercel](https://vercel.com) — [ftimesheethub.vercel.app](https://ftimesheethub.vercel.app)
 - **Dados:** [Supabase](https://supabase.com) `fcamarahorashub` — produção via Supabase; local usa mock por padrão
 - **Repo:** GitHub `fcamarahorashub`
 
