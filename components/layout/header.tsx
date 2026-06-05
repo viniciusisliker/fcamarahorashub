@@ -31,7 +31,7 @@ export function Header({ onMenuClick }: HeaderProps) {
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <BrandLogo size="sm" tone="light" showText={false} className="hidden sm:inline-flex" />
         <div className="min-w-0">
-          <p className="truncate text-sm font-bold tracking-tight">FTimeHub</p>
+          <p className="truncate text-sm font-bold tracking-tight">FTimeSheetHub</p>
           <p className="truncate text-xs capitalize text-muted-foreground">
             {mesLabel}
           </p>

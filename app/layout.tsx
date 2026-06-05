@@ -9,7 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "FTimeHub — Gestão de Apontamentos",
+  title: "FTimeSheetHub — Gestão de Apontamentos",
   description:
     "Plataforma moderna para gestores e RH acompanharem apontamentos de horas em tempo real.",
 };

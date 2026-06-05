@@ -1,6 +1,6 @@
-# Hub de Apontamentos — FCamara
+# FTimeSheetHub
 
-Hub web para gestores e RH consultarem apontamentos de horas dos colaboradores. Identidade visual inspirada em [fcamara.com](https://fcamara.com/).
+Hub web para gestores e RH consultarem apontamentos de horas dos colaboradores.
 
 ## Stack
 

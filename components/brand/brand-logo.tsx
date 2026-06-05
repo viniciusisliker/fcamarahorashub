@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const sizeMap = {
   sm: { box: "h-8 w-8", icon: "h-4 w-4", text: "text-sm" },
-  md: { box: "h-10 w-10", icon: "h-5 w-5", text: "text-base" },
+  md: { box: "h-10 w-10", icon: "h-5 w-5", text: "text-sm" },
   lg: { box: "h-16 w-16", icon: "h-8 w-8", text: "text-2xl" },
 } as const;
 
@@ -38,7 +38,7 @@ export function BrandLogo({
       {showText ? (
         <span className={cn("font-bold tracking-tight", s.text)}>
           <span className={tone === "dark" ? "text-white" : "text-foreground"}>
-            FTime
+            FTimeSheet
           </span>
           <span className="gradient-text">Hub</span>
         </span>
