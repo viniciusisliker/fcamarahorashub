@@ -41,17 +41,20 @@ Schema inicial: `supabase/migrations/20250601000000_apontamentos.sql`
 1. Importar repositório **fcamarahorashub** em [vercel.com/new](https://vercel.com/new).
 2. Nome do projeto: **fcamarahorashub**.
 3. Framework: Next.js (detectado automaticamente).
-4. Variáveis de ambiente (Production + Preview):
+4. Variáveis de ambiente:
 
-| Variável | Obrigatória | Descrição |
-|----------|-------------|-----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Sim (prod) | `https://kjfwstmxldxbbuwmjtji.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sim (prod) | Chave anon/publishable do projeto |
-| `NEXT_PUBLIC_USE_MOCK_DATA` | Sim | `true` = mock (local/CI); `false` = Supabase (produção) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Não** | Apenas rotas server/admin |
+**Produção (Vercel):** já definidas em [`vercel.json`](../vercel.json) (`NEXT_PUBLIC_USE_MOCK_DATA=false` + credenciais Supabase). Novo deploy aplica automaticamente.
 
-\* Obrigatórias quando `NEXT_PUBLIC_USE_MOCK_DATA=false`.  
-\** Nunca marcar como exposta ao browser no Vercel.
+**Local / CI:**
+
+| Variável | Descrição |
+|----------|-----------|
+| `NEXT_PUBLIC_USE_MOCK_DATA` | `true` (padrão em `.env.example` e GitHub Actions) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Só se testar Supabase localmente |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave anon (pública; protegida por RLS) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Não** — apenas rotas server/admin |
+
+\** Nunca expor ao browser.
 
 5. Deploy: push na `main` dispara build automático.
 
