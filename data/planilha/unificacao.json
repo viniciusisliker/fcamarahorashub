@@ -10,8 +10,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 64.0,
       "total": 64.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -25,8 +31,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.92,
       "total": 56.92
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -42,6 +54,12 @@
       "horasExtras": 0.0,
       "sobreaviso": 0.0,
       "total": 0.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -55,8 +73,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 55.0,
       "total": 55.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -70,8 +94,14 @@
     "orange": {
       "horasNormais": 1.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.0,
       "total": 56.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -85,8 +115,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.97,
       "total": 56.97
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -100,8 +136,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 44.0,
       "total": 44.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -115,8 +157,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.97,
       "total": 56.97
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -130,8 +178,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 58.17,
       "total": 58.17
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -145,8 +199,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.0,
       "total": 56.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -160,8 +220,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 32.38,
       "total": 32.38
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -175,8 +241,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 56.0,
       "total": 56.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   },
   {
@@ -190,8 +262,14 @@
     "orange": {
       "horasNormais": 0.0,
       "horasExtras": 0.0,
-      "sobreaviso": 0.0,
+      "sobreaviso": 33.0,
       "total": 33.0
+    },
+    "graficos": {
+      "tSobreavisoTerco": 0.0,
+      "fSobreavisoTerco": 0.0,
+      "tHorasExtras": 0.0,
+      "fHorasExtras": 0.0
     }
   }
 ]

@@ -13,10 +13,18 @@ export interface HorasPorFonte {
   total: number;
 }
 
+export interface UnificacaoGraficos {
+  tSobreavisoTerco: number;
+  fSobreavisoTerco: number;
+  tHorasExtras: number;
+  fHorasExtras: number;
+}
+
 export interface UnificacaoAnalista {
   analista: string;
   tangerino: HorasPorFonte;
   orange: HorasPorFonte;
+  graficos: UnificacaoGraficos;
 }
 
 export interface ApontamentoPorDiaAnalista {

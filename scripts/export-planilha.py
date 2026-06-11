@@ -93,54 +93,41 @@ def export_analistas(wb: openpyxl.Workbook) -> list[dict]:
     return result
 
 
+def cell_hours(row: tuple, index: int) -> float:
+    if index >= len(row):
+        return 0.0
+    return td_to_hours(row[index])
+
+
 def export_unificacao(wb: openpyxl.Workbook) -> list[dict]:
+    """Mapeamento fixo da aba U_DinamicaColada (colunas A–N)."""
     ws = sheet_by_keyword(wb, "dinamicacolada")
-    headers = [str(c).strip() if c else "" for c in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
-    col_map = {h: i for i, h in enumerate(headers)}
-
-    def col(*names: str) -> int | None:
-        for name in names:
-            for h, i in col_map.items():
-                if name.lower() in h.lower():
-                    return i
-        return None
-
-    idx_nome = col("analista") or 0
-    idx_t_total = col("tangerino total", "soma de tangerino total")
-    idx_f_total = col("fcteam_total", "soma de fcteam_total")
-    idx_t_sobre = col("t_sobreaviso") if col("t_sobreaviso") != col("soma de t_sobreaviso") else col("soma de t_sobreaviso")
-    idx_f_sobre = col("f_sobreaviso") if col("f_sobreaviso") else col("soma de f_sobreaviso")
-    idx_t_extra = col("t_horas extras", "soma de t_horas extras")
-    idx_f_extra = col("f_horas extras", "soma de f_horas extras")
-    idx_t_norm = col("t_horas normais", "soma de t_horas normais")
-    idx_f_norm = col("f_horas normais", "soma de f_horas normais")
-
-  # Extra columns used directly by charts (J,K,L,M in sheet)
-    extra_cols = list(ws.iter_rows(min_row=1, max_row=1, values_only=True))[0]
-    chart_t_sobre = 9 if len(extra_cols) > 9 else None
-    chart_f_sobre = 10 if len(extra_cols) > 10 else None
-    chart_t_extra = 11 if len(extra_cols) > 11 else None
-    chart_f_extra = 12 if len(extra_cols) > 12 else None
-
+    # 0 Analista | 1-4 Tangerino | 5-8 Orange | 9-12 colunas dos gráficos
     result = []
     for row in ws.iter_rows(min_row=2, values_only=True):
-        if not row or not row[idx_nome]:
+        if not row or not row[0]:
             continue
-        nome = str(row[idx_nome]).strip()
+        nome = str(row[0]).strip()
         result.append(
             {
                 "analista": nome,
                 "tangerino": {
-                    "horasNormais": td_to_hours(row[idx_t_norm]) if idx_t_norm is not None else 0,
-                    "horasExtras": td_to_hours(row[chart_t_extra]) if chart_t_extra is not None else td_to_hours(row[idx_t_extra]) if idx_t_extra is not None else 0,
-                    "sobreaviso": td_to_hours(row[chart_t_sobre]) if chart_t_sobre is not None else td_to_hours(row[idx_t_sobre]) if idx_t_sobre is not None else 0,
-                    "total": td_to_hours(row[idx_t_total]) if idx_t_total is not None else 0,
+                    "horasNormais": cell_hours(row, 1),
+                    "horasExtras": cell_hours(row, 2),
+                    "sobreaviso": cell_hours(row, 3),
+                    "total": cell_hours(row, 4),
                 },
                 "orange": {
-                    "horasNormais": td_to_hours(row[idx_f_norm]) if idx_f_norm is not None else 0,
-                    "horasExtras": td_to_hours(row[chart_f_extra]) if chart_f_extra is not None else td_to_hours(row[idx_f_extra]) if idx_f_extra is not None else 0,
-                    "sobreaviso": td_to_hours(row[chart_f_sobre]) if chart_f_sobre is not None else td_to_hours(row[idx_f_sobre]) if idx_f_sobre is not None else 0,
-                    "total": td_to_hours(row[idx_f_total]) if idx_f_total is not None else 0,
+                    "horasNormais": cell_hours(row, 5),
+                    "horasExtras": cell_hours(row, 6),
+                    "sobreaviso": cell_hours(row, 7),
+                    "total": cell_hours(row, 8),
+                },
+                "graficos": {
+                    "tSobreavisoTerco": cell_hours(row, 9),
+                    "fSobreavisoTerco": cell_hours(row, 10),
+                    "tHorasExtras": cell_hours(row, 11),
+                    "fHorasExtras": cell_hours(row, 12),
                 },
             }
         )
