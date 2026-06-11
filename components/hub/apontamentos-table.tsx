@@ -52,7 +52,7 @@ export function ApontamentosTable({
   }
 
   return (
-    <div className="overflow-hidden rounded-[var(--radius-card)] border border-border/80 bg-white/90 shadow-[var(--shadow-card)]">
+    <div className="hub-panel overflow-hidden !p-0 lg:hover:shadow-[var(--shadow-card)]">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[580px] text-sm">
           <thead>

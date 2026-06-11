@@ -14,6 +14,7 @@ import {
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { HoursChart } from "@/components/hub/hours-chart";
+import { HubPanel } from "@/components/hub/hub-panel";
 import { KpiCard } from "@/components/hub/kpi-card";
 import { PlanilhaChartsSection } from "@/components/hub/planilha-charts-section";
 import { StatusBadge } from "@/components/hub/status-badge";
@@ -75,15 +76,16 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-5 lg:space-y-8">
+      <div className="hub-page">
         <div className="h-24 animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-28" />
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
               className={cn(
                 "h-[108px] animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-[132px] lg:h-[140px]",
-                i === 0 && "col-span-2 xl:col-span-1"
+                i === 0 && "sm:col-span-2 xl:col-span-1",
+                i === 3 && "sm:col-span-2 xl:col-span-1"
               )}
             />
           ))}
@@ -93,20 +95,29 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-5 lg:space-y-8">
-      <section className="animate-fade-up relative overflow-hidden rounded-[var(--radius-card)] border border-border/60 bg-white/80 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:rounded-[20px] lg:p-8">
+    <div className="hub-page">
+      <section className="hub-hero animate-fade-up">
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
         <div className="relative flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-1.5 sm:space-y-2">
-            <p className="flex items-center gap-2 text-xs font-medium text-primary sm:text-sm">
-              <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
+          <div className="space-y-2 sm:space-y-3">
+            <p className="eyebrow flex items-center gap-2">
+              <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {getGreeting()}
             </p>
-            <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
+            <h1 className="text-display">
               Sua equipe em{" "}
               <span className="gradient-text">tempo real</span>
             </h1>
-            <p className="max-w-xl text-sm text-muted-foreground sm:text-base">
+            <div className="flex flex-wrap gap-2 sm:hidden">
+              <span className="hub-chip">{periodoItems.length} apontamentos</span>
+              <span className="hub-chip hub-chip-primary">{formatHoras(totalHoras)}</span>
+              {statusCounts.pendente > 0 ? (
+                <span className="hub-chip border-amber-500/25 bg-amber-500/10 text-amber-800">
+                  {statusCounts.pendente} pendentes
+                </span>
+              ) : null}
+            </div>
+            <p className="hidden max-w-xl text-sm text-muted-foreground sm:block sm:text-base">
               {periodoItems.length} apontamentos no período ·{" "}
               {formatHoras(totalHoras)} registradas ·{" "}
               {statusCounts.pendente} aguardando aprovação
@@ -121,9 +132,9 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         <KpiCard
-          className="animate-fade-up-delay-1 col-span-2 xl:col-span-1"
+          className="animate-fade-up-delay-1 sm:col-span-2 xl:col-span-1"
           title="Total de horas"
           value={formatHoras(totalHoras)}
           description="No período selecionado"
@@ -145,7 +156,7 @@ export default function DashboardPage() {
           icon={Users}
         />
         <KpiCard
-          className="animate-fade-up-delay-3"
+          className="animate-fade-up-delay-3 sm:col-span-2 xl:col-span-1"
           title="Média / dia útil"
           value={formatHoras(mediaHorasPorDiaUtil(periodoItems))}
           description="Produtividade média"
@@ -161,43 +172,40 @@ export default function DashboardPage() {
       <PlanilhaChartsSection />
 
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-8">
-          <div className="mb-4 flex items-start justify-between gap-4 sm:mb-6">
-            <div>
-              <h2 className="text-base font-bold tracking-tight sm:text-lg">Horas por dia</h2>
-              <p className="text-xs text-muted-foreground sm:text-sm">
-                Evolução diária no período · destaque no pico
-              </p>
-            </div>
+        <HubPanel
+          className="lg:col-span-8"
+          title="Horas por dia"
+          description="Evolução diária no período · destaque no pico"
+        >
+          <div className="chart-scroll sm:overflow-visible">
+            <HoursChart data={chartData} />
           </div>
-          <HoursChart data={chartData} />
-        </div>
+        </HubPanel>
 
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-4">
-          <h2 className="text-base font-bold tracking-tight sm:text-lg">Distribuição</h2>
-          <p className="mb-4 text-xs text-muted-foreground sm:mb-6 sm:text-sm">Status dos apontamentos</p>
-          <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-6">
+        <HubPanel
+          className="lg:col-span-4"
+          title="Distribuição"
+          description="Status dos apontamentos"
+        >
+          <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-8 lg:justify-start">
             <StatusRing counts={statusCounts} total={periodoItems.length} />
             <StatusLegend counts={statusCounts} />
           </div>
-        </div>
+        </HubPanel>
       </div>
 
-      <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6">
-        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <div>
-            <h2 className="text-base font-bold tracking-tight sm:text-lg">Fila de aprovação</h2>
-            <p className="text-xs text-muted-foreground sm:text-sm">
-              Últimos pendentes que precisam da sua atenção
-            </p>
-          </div>
+      <HubPanel
+        title="Fila de aprovação"
+        description="Últimos pendentes que precisam da sua atenção"
+        action={
           <Button variant="outline" size="sm" className="w-full rounded-full sm:w-auto" asChild>
             <Link href="/apontamentos?status=pendente">
               Ver todos
               <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
             </Link>
           </Button>
-        </div>
+        }
+      >
 
         {pendentes.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border bg-muted/20 py-10 text-center text-sm text-muted-foreground">
@@ -234,7 +242,7 @@ export default function DashboardPage() {
             ))}
           </div>
         )}
-      </div>
+      </HubPanel>
     </div>
   );
 }

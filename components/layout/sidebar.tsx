@@ -46,11 +46,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "mesh-dark fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col border-r border-white/[0.06] transition-transform duration-300 ease-out lg:static lg:translate-x-0",
+          "mesh-dark fixed inset-y-0 left-0 z-50 flex w-[min(100vw-2.5rem,280px)] flex-col border-r border-white/[0.06] pt-[env(safe-area-inset-top)] transition-transform duration-300 ease-out lg:static lg:w-[280px] lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex h-[72px] items-center justify-between px-5">
+        <div className="flex min-h-14 items-center justify-between px-4 sm:px-5 lg:min-h-[72px]">
           <Link href="/dashboard" className="flex items-center" onClick={onClose}>
             <BrandLogo size="md" tone="dark" />
           </Link>
@@ -81,11 +81,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                   else onClose();
                 }}
                 className={cn(
-                  "group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+                  "group relative flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
                   item.disabled && "cursor-not-allowed opacity-40",
                   active
-                    ? "bg-white/[0.1] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/10"
-                    : "text-white/60 hover:bg-white/[0.06] hover:text-white"
+                    ? "bg-white/[0.08] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-white/10 before:absolute before:left-0 before:top-1/2 before:h-7 before:w-[3px] before:-translate-y-1/2 before:rounded-r-full before:bg-gradient-to-b before:from-primary before:to-[#c93a00]"
+                    : "text-white/55 hover:bg-white/[0.05] hover:text-white"
                 )}
                 aria-disabled={item.disabled}
               >
@@ -110,14 +110,14 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           })}
         </nav>
 
-        <div className="m-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-4">
-          <div className="mb-2 flex items-center gap-2 text-primary">
-            <Sparkles className="h-4 w-4" aria-hidden />
-            <span className="text-xs font-semibold uppercase tracking-wide">
-              Insight
+        <div className="glass-dark m-3 mb-[max(0.75rem,env(safe-area-inset-bottom))] rounded-2xl p-4">
+          <div className="mb-2 flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden />
             </span>
+            <span className="eyebrow text-primary/90">Insight</span>
           </div>
-          <p className="text-xs leading-relaxed text-white/55">
+          <p className="text-xs leading-relaxed text-white/50">
             Acompanhe horas, aprovações e produtividade da equipe em tempo real.
           </p>
         </div>

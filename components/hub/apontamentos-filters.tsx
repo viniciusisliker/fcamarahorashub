@@ -27,7 +27,7 @@ export function ApontamentosFiltersBar({
   projetos,
 }: ApontamentosFiltersProps) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-5">
+    <div className="hub-panel">
       <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
         <SlidersHorizontal className="h-4 w-4 text-primary" aria-hidden />
         Filtros

@@ -4,6 +4,8 @@ import { FileSpreadsheet } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { ComparisonHoursChart } from "@/components/hub/comparison-hours-chart";
+import { HubPanel } from "@/components/hub/hub-panel";
+import { SectionHeader } from "@/components/hub/section-header";
 import { usePlanilhaGraficos } from "@/lib/hooks/use-planilha-graficos";
 import type { UnificacaoAnalista } from "@/lib/types/planilha";
 
@@ -35,9 +37,7 @@ export function PlanilhaChartsSection() {
   const { meta, unificacao, loading, available } = usePlanilhaGraficos();
 
   if (loading) {
-    return (
-      <div className="h-64 animate-pulse rounded-[var(--radius-card)] bg-white/60" />
-    );
+    return <div className="h-64 animate-pulse rounded-[var(--radius-card)] bg-white/60" />;
   }
 
   if (!available || !meta) return null;
@@ -49,45 +49,30 @@ export function PlanilhaChartsSection() {
 
   return (
     <section className="space-y-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary">
-            <FileSpreadsheet className="h-4 w-4" aria-hidden />
-            Extração Tommy
-          </p>
-          <h2 className="text-base font-bold tracking-tight sm:text-lg">
-            Comparativo Tangerino × Orange
-          </h2>
-          <p className="text-xs text-muted-foreground sm:text-sm">
-            {meta.arquivoOrigem} · {periodoLabel} · {meta.totalApontamentos} lançamentos
-          </p>
-        </div>
-      </div>
+      <SectionHeader
+        eyebrow="Extração Tommy"
+        icon={FileSpreadsheet}
+        title="Comparativo Tangerino × Orange"
+        description={`${meta.arquivoOrigem} · ${periodoLabel} · ${meta.totalApontamentos} lançamentos`}
+      />
 
-      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-2">
-          <h3 className="mb-1 text-sm font-bold sm:text-base">Total de horas por analista</h3>
-          <p className="mb-4 text-xs text-muted-foreground sm:text-sm">
-            Mesma visão da aba Gráficos — Tangerino vs Orange (FCTeam)
-          </p>
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
+        <HubPanel
+          className="lg:col-span-2"
+          title="Total de horas por analista"
+          description="Mesma visão da aba Gráficos — Tangerino vs Orange (FCTeam)"
+          noHover
+        >
           <ComparisonHoursChart data={mapTotal(unificacao)} />
-        </div>
+        </HubPanel>
 
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6">
-          <h3 className="mb-1 text-sm font-bold sm:text-base">Sobreaviso</h3>
-          <p className="mb-4 text-xs text-muted-foreground sm:text-sm">
-            Horas de sobreaviso por ferramenta
-          </p>
+        <HubPanel title="Sobreaviso" description="Horas de sobreaviso por ferramenta" noHover>
           <ComparisonHoursChart data={mapSobreaviso(unificacao)} height={280} />
-        </div>
+        </HubPanel>
 
-        <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6">
-          <h3 className="mb-1 text-sm font-bold sm:text-base">Horas extras</h3>
-          <p className="mb-4 text-xs text-muted-foreground sm:text-sm">
-            Comparativo de horas extras lançadas
-          </p>
+        <HubPanel title="Horas extras" description="Comparativo de horas extras lançadas" noHover>
           <ComparisonHoursChart data={mapExtras(unificacao)} height={280} />
-        </div>
+        </HubPanel>
       </div>
     </section>
   );

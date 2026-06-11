@@ -17,7 +17,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   const mesLabel = format(inicio, "MMMM yyyy", { locale: ptBR });
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-2 border-b border-border/60 bg-white/60 px-3 backdrop-blur-xl sm:gap-3 sm:px-4 lg:h-[72px] lg:gap-4 lg:px-8">
+    <header className="sticky top-0 z-30 flex min-h-14 shrink-0 items-center gap-2 border-b border-[var(--ftime-border)] bg-white/75 px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_4px_24px_rgba(15,23,42,0.04)] backdrop-blur-2xl sm:gap-3 sm:px-4 lg:min-h-[72px] lg:gap-4 lg:px-8 lg:pb-0 lg:pt-[env(safe-area-inset-top)]">
       <Button
         variant="ghost"
         size="icon"
@@ -31,8 +31,8 @@ export function Header({ onMenuClick }: HeaderProps) {
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <BrandLogo size="sm" tone="light" showText={false} className="hidden sm:inline-flex" />
         <div className="min-w-0">
-          <p className="truncate text-sm font-bold tracking-tight">FTimeSheetHub</p>
-          <p className="truncate text-xs capitalize text-muted-foreground">
+          <p className="truncate text-sm font-bold tracking-tight text-foreground">FTimeSheetHub</p>
+          <p className="truncate text-[11px] font-medium capitalize tracking-wide text-muted-foreground">
             {mesLabel}
           </p>
         </div>
@@ -41,12 +41,15 @@ export function Header({ onMenuClick }: HeaderProps) {
       <Button
         variant="outline"
         size="sm"
-        className="gap-2 rounded-full border-border/80 bg-white/80 shadow-sm"
+        className="h-9 shrink-0 gap-1.5 rounded-full border-border/80 bg-white/80 px-3 shadow-sm sm:gap-2 sm:px-4"
         onClick={setMesAtual}
       >
-        <CalendarDays className="h-4 w-4 text-primary" aria-hidden />
-        <span className="hidden md:inline">{formatPeriodoLabel(inicio, fim)}</span>
-        <span className="md:hidden">Período</span>
+        <CalendarDays className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+        <span className="hidden lg:inline">{formatPeriodoLabel(inicio, fim)}</span>
+        <span className="hidden sm:inline lg:hidden">
+          {format(inicio, "dd/MM", { locale: ptBR })} – {format(fim, "dd/MM", { locale: ptBR })}
+        </span>
+        <span className="capitalize sm:hidden">{mesLabel}</span>
       </Button>
     </header>
   );

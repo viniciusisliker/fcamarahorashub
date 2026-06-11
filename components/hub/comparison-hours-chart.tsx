@@ -72,6 +72,8 @@ export function ComparisonHoursChart({
       label: isCompact ? shortName(d.analista) : d.analista,
     }));
 
+  const scrollWidth = Math.max(chartData.length * 52, 320);
+
   if (chartData.length === 0) {
     return (
       <div
@@ -83,58 +85,76 @@ export function ComparisonHoursChart({
     );
   }
 
-  return (
-    <div style={{ height: chartHeight }} className="w-full">
-      <ResponsiveContainer width="100%" height="100%">
+  const margin = {
+    top: 8,
+    right: isCompact ? 8 : 12,
+    left: isCompact ? -12 : -8,
+    bottom: isCompact ? 52 : 24,
+  };
+
+  const bars = (
+    <>
+      <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
+      <XAxis
+        dataKey="label"
+        tick={{ fontSize: isCompact ? 9 : 10, fill: "var(--ftime-muted)" }}
+        tickLine={false}
+        axisLine={false}
+        interval={0}
+        angle={isCompact ? -35 : -20}
+        textAnchor="end"
+        height={isCompact ? 56 : 40}
+      />
+      <YAxis
+        tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
+        tickLine={false}
+        axisLine={false}
+        width={32}
+      />
+      <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(255,85,0,0.04)" }} />
+      <Legend
+        wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
+        formatter={(value) => <span className="text-muted-foreground">{value}</span>}
+      />
+      <Bar
+        dataKey="tangerino"
+        name={tangerinoLabel}
+        fill="#f59e0b"
+        radius={[4, 4, 0, 0]}
+        maxBarSize={isCompact ? 22 : 36}
+      />
+      <Bar
+        dataKey="orange"
+        name={orangeLabel}
+        fill="#ff5500"
+        radius={[4, 4, 0, 0]}
+        maxBarSize={isCompact ? 22 : 36}
+      />
+    </>
+  );
+
+  if (isCompact) {
+    return (
+      <div className="chart-scroll">
         <BarChart
           data={chartData}
-          margin={{
-            top: 8,
-            right: isCompact ? 4 : 12,
-            left: isCompact ? -18 : -8,
-            bottom: isCompact ? 48 : 24,
-          }}
+          width={scrollWidth}
+          height={chartHeight}
+          margin={margin}
           barGap={2}
           barCategoryGap="18%"
         >
-          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
-          <XAxis
-            dataKey="label"
-            tick={{ fontSize: isCompact ? 9 : 10, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            interval={0}
-            angle={isCompact ? -35 : -20}
-            textAnchor="end"
-            height={isCompact ? 56 : 40}
-          />
-          <YAxis
-            tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            width={32}
-          />
-          <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(255,85,0,0.04)" }} />
-          <Legend
-            wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
-            formatter={(value) => (
-              <span className="text-muted-foreground">{value}</span>
-            )}
-          />
-          <Bar
-            dataKey="tangerino"
-            name={tangerinoLabel}
-            fill="#f59e0b"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={isCompact ? 22 : 36}
-          />
-          <Bar
-            dataKey="orange"
-            name={orangeLabel}
-            fill="#ff5500"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={isCompact ? 22 : 36}
-          />
+          {bars}
+        </BarChart>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ height: chartHeight }} className="w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={chartData} margin={margin} barGap={2} barCategoryGap="18%">
+          {bars}
         </BarChart>
       </ResponsiveContainer>
     </div>

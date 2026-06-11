@@ -94,7 +94,7 @@ export function ApontamentosPageContent() {
   };
 
   return (
-    <div className="space-y-5 sm:space-y-6">
+    <div className="hub-page">
       <PageHeader
         eyebrow="Registros"
         title="Apontamentos"
