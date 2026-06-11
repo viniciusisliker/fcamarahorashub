@@ -8,6 +8,7 @@ interface HubPanelProps {
   className?: string;
   bodyClassName?: string;
   noHover?: boolean;
+  accent?: "orange" | "violet" | "success";
 }
 
 export function HubPanel({
@@ -18,9 +19,20 @@ export function HubPanel({
   className,
   bodyClassName,
   noHover,
+  accent = "orange",
 }: HubPanelProps) {
+  const accentClass =
+    accent === "violet" ? "hub-panel--violet" : accent === "success" ? "hub-panel--success" : undefined;
+
   return (
-    <section className={cn("hub-panel", noHover && "lg:hover:shadow-[var(--shadow-card)]", className)}>
+    <section
+      className={cn(
+        "hub-panel",
+        accentClass,
+        noHover && "lg:hover:transform-none lg:hover:shadow-[0_4px_24px_rgba(15,23,42,0.08)]",
+        className
+      )}
+    >
       {title || description || action ? (
         <header className="relative mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <div className="min-w-0">

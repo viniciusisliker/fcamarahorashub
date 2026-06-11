@@ -5,14 +5,16 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import {
   ArrowRight,
+  ClipboardList,
   Clock,
   Hourglass,
-  Sparkles,
   TrendingUp,
   Users,
+  XCircle,
 } from "lucide-react";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { CommandHero } from "@/components/hub/command-hero";
 import { HoursChart } from "@/components/hub/hours-chart";
 import { HubPanel } from "@/components/hub/hub-panel";
 import { KpiCard } from "@/components/hub/kpi-card";
@@ -74,19 +76,20 @@ export default function DashboardPage() {
 
   const totalHoras = sumHoras(periodoItems);
 
+  const taxaAprovacao =
+    periodoItems.length > 0
+      ? Math.round((statusCounts.aprovado / periodoItems.length) * 100)
+      : 0;
+
   if (loading) {
     return (
       <div className="hub-page">
-        <div className="h-24 animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-28" />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+        <div className="h-48 animate-pulse rounded-[var(--radius-panel)] bg-[#14101c] sm:h-56" />
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className={cn(
-                "h-[108px] animate-pulse rounded-[var(--radius-card)] bg-white/60 sm:h-[132px] lg:h-[140px]",
-                i === 0 && "sm:col-span-2 xl:col-span-1",
-                i === 3 && "sm:col-span-2 xl:col-span-1"
-              )}
+              className="h-[100px] animate-pulse rounded-[var(--radius-card)] bg-white sm:h-[120px]"
             />
           ))}
         </div>
@@ -96,76 +99,69 @@ export default function DashboardPage() {
 
   return (
     <div className="hub-page">
-      <section className="hub-hero animate-fade-up">
-        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-        <div className="relative flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-2 sm:space-y-3">
-            <p className="eyebrow flex items-center gap-2">
-              <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              {getGreeting()}
-            </p>
-            <h1 className="text-display">
-              Sua equipe em{" "}
-              <span className="gradient-text">tempo real</span>
-            </h1>
-            <div className="flex flex-wrap gap-2 sm:hidden">
-              <span className="hub-chip">{periodoItems.length} apontamentos</span>
-              <span className="hub-chip hub-chip-primary">{formatHoras(totalHoras)}</span>
-              {statusCounts.pendente > 0 ? (
-                <span className="hub-chip border-amber-500/25 bg-amber-500/10 text-amber-800">
-                  {statusCounts.pendente} pendentes
-                </span>
-              ) : null}
-            </div>
-            <p className="hidden max-w-xl text-sm text-muted-foreground sm:block sm:text-base">
-              {periodoItems.length} apontamentos no período ·{" "}
-              {formatHoras(totalHoras)} registradas ·{" "}
-              {statusCounts.pendente} aguardando aprovação
-            </p>
-          </div>
-          <Button className="w-full shrink-0 rounded-full px-6 shadow-lg shadow-primary/25 sm:w-auto" asChild>
-            <Link href="/apontamentos">
-              Ver apontamentos
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-      </section>
+      <CommandHero
+        greeting={getGreeting()}
+        title={
+          <>
+            Sua equipe em{" "}
+            <span className="bg-gradient-to-r from-primary via-[#ff8c42] to-[#ffb347] bg-clip-text text-transparent">
+              tempo real
+            </span>
+          </>
+        }
+        subtitle={`${periodoItems.length} apontamentos no período selecionado · dados da planilha Tommy`}
+        stats={[
+          {
+            label: "Total de horas",
+            value: formatHoras(totalHoras),
+            icon: Clock,
+            accent: "orange",
+          },
+          {
+            label: "Apontamentos",
+            value: String(periodoItems.length),
+            icon: ClipboardList,
+          },
+          {
+            label: "Colaboradores",
+            value: String(countColaboradoresComLancamento(periodoItems)),
+            icon: Users,
+          },
+          {
+            label: "Pendentes",
+            value: String(statusCounts.pendente),
+            icon: Hourglass,
+            accent: statusCounts.pendente > 0 ? "amber" : undefined,
+          },
+        ]}
+        ctaHref="/apontamentos"
+        ctaLabel="Ver apontamentos"
+      />
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
-        <KpiCard
-          className="animate-fade-up-delay-1 sm:col-span-2 xl:col-span-1"
-          title="Total de horas"
-          value={formatHoras(totalHoras)}
-          description="No período selecionado"
-          icon={Clock}
-          variant="featured"
-        />
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         <KpiCard
           className="animate-fade-up-delay-1"
-          title="Pendentes"
-          value={String(statusCounts.pendente)}
-          description="Aguardando validação"
-          icon={Hourglass}
-        />
-        <KpiCard
-          className="animate-fade-up-delay-2"
-          title="Colaboradores"
-          value={String(countColaboradoresComLancamento(periodoItems))}
-          description="Com lançamentos"
-          icon={Users}
-        />
-        <KpiCard
-          className="animate-fade-up-delay-3 sm:col-span-2 xl:col-span-1"
           title="Média / dia útil"
           value={formatHoras(mediaHorasPorDiaUtil(periodoItems))}
           description="Produtividade média"
           icon={TrendingUp}
-          trend={
-            statusCounts.aprovado > 0
-              ? `${Math.round((statusCounts.aprovado / Math.max(periodoItems.length, 1)) * 100)}% aprovados`
-              : undefined
-          }
+          accent="emerald"
+        />
+        <KpiCard
+          className="animate-fade-up-delay-2"
+          title="Taxa de aprovação"
+          value={`${taxaAprovacao}%`}
+          description={`${statusCounts.aprovado} de ${periodoItems.length} aprovados`}
+          icon={Users}
+          accent="violet"
+        />
+        <KpiCard
+          className="animate-fade-up-delay-3"
+          title="Rejeitados"
+          value={String(statusCounts.rejeitado)}
+          description="Precisam de correção"
+          icon={XCircle}
+          accent="amber"
         />
       </div>
 
@@ -184,6 +180,7 @@ export default function DashboardPage() {
 
         <HubPanel
           className="lg:col-span-4"
+          accent="violet"
           title="Distribuição"
           description="Status dos apontamentos"
         >

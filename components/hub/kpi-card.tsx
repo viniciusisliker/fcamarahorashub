@@ -7,6 +7,7 @@ interface KpiCardProps {
   description?: string;
   icon: LucideIcon;
   variant?: "default" | "featured";
+  accent?: "orange" | "amber" | "violet" | "emerald";
   trend?: string;
   className?: string;
 }
@@ -17,16 +18,23 @@ export function KpiCard({
   description,
   icon: Icon,
   variant = "default",
+  accent = "orange",
   trend,
   className,
 }: KpiCardProps) {
   const featured = variant === "featured";
+  const accentClass = {
+    orange: "kpi-accent-orange",
+    amber: "kpi-accent-amber",
+    violet: "kpi-accent-violet",
+    emerald: "kpi-accent-emerald",
+  }[accent];
 
   return (
     <div
       className={cn(
-        "group relative flex min-h-[100px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-3 transition-all duration-300 sm:min-h-[132px] sm:p-4 lg:min-h-[144px] lg:p-5 lg:hover:-translate-y-0.5",
-        featured ? "premium-kpi-dark" : "premium-kpi-light lg:hover:shadow-[var(--shadow-elevated)]",
+        "group relative flex min-h-[100px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-3 transition-all duration-300 sm:min-h-[120px] sm:p-4 lg:p-5 lg:hover:-translate-y-1",
+        featured ? "premium-kpi-dark" : cn("premium-kpi-light lg:hover:shadow-lg", accentClass),
         className
       )}
     >

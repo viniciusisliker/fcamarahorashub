@@ -21,18 +21,18 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4",
+        "flex flex-col gap-3 rounded-[var(--radius-card)] border border-primary/15 bg-gradient-to-r from-primary/8 via-white to-white px-4 py-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:px-5 sm:py-4",
         className
       )}
     >
       <div className="min-w-0 space-y-1">
         {eyebrow ? (
-          <p className="eyebrow flex items-center gap-2">
-            {Icon ? <Icon className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden /> : null}
+          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-primary sm:text-[11px]">
+            {Icon ? <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden /> : null}
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="text-display-sm text-foreground">{title}</h2>
+        <h2 className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">{title}</h2>
         {description ? (
           <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{description}</p>
         ) : null}

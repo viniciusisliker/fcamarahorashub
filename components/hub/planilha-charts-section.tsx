@@ -59,6 +59,7 @@ export function PlanilhaChartsSection() {
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
         <HubPanel
           className="lg:col-span-2"
+          accent="orange"
           title="Total de horas por analista"
           description="Mesma visão da aba Gráficos — Tangerino vs Orange (FCTeam)"
           noHover

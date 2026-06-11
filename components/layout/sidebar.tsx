@@ -46,7 +46,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "mesh-dark fixed inset-y-0 left-0 z-50 flex w-[min(100vw-2.5rem,280px)] flex-col border-r border-white/[0.06] pt-[env(safe-area-inset-top)] transition-transform duration-300 ease-out lg:static lg:w-[280px] lg:translate-x-0",
+          "mesh-dark fixed inset-y-0 left-0 z-50 flex w-[min(100vw-2.5rem,280px)] flex-col border-r-2 border-primary/40 pt-[env(safe-area-inset-top)] shadow-[4px_0_32px_rgba(255,85,0,0.08)] transition-transform duration-300 ease-out lg:static lg:w-[280px] lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
