@@ -23,6 +23,7 @@ interface ComparisonHoursChartProps {
   tangerinoLabel?: string;
   orangeLabel?: string;
   height?: number;
+  emptyMessage?: string;
 }
 
 function shortName(nome: string) {
@@ -61,6 +62,7 @@ export function ComparisonHoursChart({
   tangerinoLabel = "Tangerino",
   orangeLabel = "Orange",
   height,
+  emptyMessage = "Sem dados para comparar",
 }: ComparisonHoursChartProps) {
   const isCompact = useMediaQuery("(max-width: 639px)");
   const chartHeight = height ?? (isCompact ? 260 : 320);
@@ -80,7 +82,7 @@ export function ComparisonHoursChart({
         className="flex items-center justify-center rounded-2xl border border-dashed border-border/80 bg-muted/20 text-sm text-muted-foreground"
         style={{ height: chartHeight }}
       >
-        Sem dados para comparar
+        {emptyMessage}
       </div>
     );
   }
