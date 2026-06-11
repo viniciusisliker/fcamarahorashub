@@ -20,16 +20,16 @@ function mapTotal(items: UnificacaoAnalista[]) {
 function mapSobreaviso(items: UnificacaoAnalista[]) {
   return items.map((u) => ({
     analista: u.analista,
-    tangerino: u.graficos?.tSobreavisoTerco ?? u.tangerino.sobreaviso,
-    orange: u.graficos?.fSobreavisoTerco ?? u.orange.sobreaviso,
+    tangerino: u.graficos?.tSobreavisoTerco || u.tangerino.sobreaviso,
+    orange: u.graficos?.fSobreavisoTerco || u.orange.sobreaviso,
   }));
 }
 
 function mapExtras(items: UnificacaoAnalista[]) {
   return items.map((u) => ({
     analista: u.analista,
-    tangerino: u.graficos?.tHorasExtras ?? u.tangerino.horasExtras,
-    orange: u.graficos?.fHorasExtras ?? u.orange.horasExtras,
+    tangerino: u.graficos?.tHorasExtras || u.tangerino.horasExtras,
+    orange: u.graficos?.fHorasExtras || u.orange.horasExtras,
   }));
 }
 

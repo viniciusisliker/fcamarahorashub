@@ -46,7 +46,7 @@ export function HubPanel({
           {action ? <div className="w-full shrink-0 sm:w-auto">{action}</div> : null}
         </header>
       ) : null}
-      <div className={cn("relative", bodyClassName)}>{children}</div>
+      <div className={cn("relative min-w-0", bodyClassName)}>{children}</div>
     </section>
   );
 }
