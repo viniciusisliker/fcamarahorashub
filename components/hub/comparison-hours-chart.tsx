@@ -4,13 +4,13 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 
 export interface ComparisonChartItem {
   analista: string;
@@ -26,10 +26,44 @@ interface ComparisonHoursChartProps {
   emptyMessage?: string;
 }
 
+const TANGERINO_COLOR = "#f59e0b";
+const ORANGE_COLOR = "#ff5500";
+
 function shortName(nome: string) {
   const parts = nome.trim().split(/\s+/);
   if (parts.length <= 2) return nome;
   return `${parts[0]} ${parts[parts.length - 1]}`;
+}
+
+function ChartLegend({
+  tangerinoLabel,
+  orangeLabel,
+  className,
+}: {
+  tangerinoLabel: string;
+  orangeLabel: string;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex flex-wrap items-center justify-end gap-4", className)}>
+      <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+        <span
+          className="h-2.5 w-2.5 rounded-sm"
+          style={{ backgroundColor: TANGERINO_COLOR }}
+          aria-hidden
+        />
+        {tangerinoLabel}
+      </span>
+      <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+        <span
+          className="h-2.5 w-2.5 rounded-sm"
+          style={{ backgroundColor: ORANGE_COLOR }}
+          aria-hidden
+        />
+        {orangeLabel}
+      </span>
+    </div>
+  );
 }
 
 function ChartTooltip({
@@ -44,7 +78,7 @@ function ChartTooltip({
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-xl border border-border/80 bg-white/95 px-3 py-2 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
-      <p className="mb-1 text-xs font-semibold text-foreground">{label}</p>
+      <p className="mb-1.5 text-xs font-semibold text-foreground">{label}</p>
       {payload.map((p) => (
         <p key={p.name} className="text-xs text-muted-foreground">
           <span className="font-bold" style={{ color: p.color }}>
@@ -65,16 +99,17 @@ export function ComparisonHoursChart({
   emptyMessage = "Sem dados para comparar",
 }: ComparisonHoursChartProps) {
   const isCompact = useMediaQuery("(max-width: 639px)");
-  const chartHeight = height ?? (isCompact ? 260 : 320);
+  const chartHeight = height ?? (isCompact ? 280 : 340);
 
   const chartData = data
     .filter((d) => d.tangerino > 0 || d.orange > 0)
     .map((d) => ({
       ...d,
-      label: isCompact ? shortName(d.analista) : d.analista,
+      label: shortName(d.analista),
+      fullName: d.analista,
     }));
 
-  const scrollWidth = Math.max(chartData.length * 52, 320);
+  const scrollWidth = Math.max(chartData.length * 56, 360);
 
   if (chartData.length === 0) {
     return (
@@ -88,106 +123,120 @@ export function ComparisonHoursChart({
   }
 
   const margin = {
-    top: 8,
-    right: isCompact ? 8 : 12,
-    left: isCompact ? -12 : -8,
-    bottom: isCompact ? 52 : 24,
+    top: 12,
+    right: isCompact ? 8 : 16,
+    left: isCompact ? -8 : -4,
+    bottom: isCompact ? 64 : 72,
   };
 
   if (isCompact) {
     return (
-      <div className="chart-scroll min-h-[260px]">
-        <BarChart
-          data={chartData}
-          width={scrollWidth}
-          height={chartHeight}
-          margin={margin}
-          barGap={2}
-          barCategoryGap="18%"
-        >
-          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
-          <XAxis
-            dataKey="label"
-            tick={{ fontSize: 9, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            interval={0}
-            angle={-35}
-            textAnchor="end"
-            height={56}
-          />
-          <YAxis
-            tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            width={32}
-          />
-          <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(255,85,0,0.04)" }} />
-          <Legend
-            wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
-            formatter={(value) => <span className="text-muted-foreground">{value}</span>}
-          />
-          <Bar
-            dataKey="tangerino"
-            name={tangerinoLabel}
-            fill="#f59e0b"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={22}
-          />
-          <Bar
-            dataKey="orange"
-            name={orangeLabel}
-            fill="#ff5500"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={22}
-          />
-        </BarChart>
+      <div className="space-y-2">
+        <ChartLegend tangerinoLabel={tangerinoLabel} orangeLabel={orangeLabel} />
+        <div className="chart-scroll min-h-[280px]">
+          <BarChart
+            data={chartData}
+            width={scrollWidth}
+            height={chartHeight}
+            margin={margin}
+            barGap={3}
+            barCategoryGap="20%"
+          >
+            <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
+            <XAxis
+              dataKey="label"
+              tick={{ fontSize: 9, fill: "var(--ftime-muted)" }}
+              tickLine={false}
+              axisLine={false}
+              interval={0}
+              angle={-40}
+              textAnchor="end"
+              height={72}
+            />
+            <YAxis
+              tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
+              tickLine={false}
+              axisLine={false}
+              width={36}
+              tickFormatter={(v) => `${v}h`}
+            />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={{ fill: "rgba(255,85,0,0.04)" }}
+              labelFormatter={(_, payload) => {
+                const item = payload?.[0]?.payload as { fullName?: string; label?: string } | undefined;
+                return item?.fullName ?? item?.label ?? "";
+              }}
+            />
+            <Bar
+              dataKey="tangerino"
+              name={tangerinoLabel}
+              fill={TANGERINO_COLOR}
+              radius={[4, 4, 0, 0]}
+              maxBarSize={22}
+            />
+            <Bar
+              dataKey="orange"
+              name={orangeLabel}
+              fill={ORANGE_COLOR}
+              radius={[4, 4, 0, 0]}
+              maxBarSize={22}
+            />
+          </BarChart>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="h-[320px] w-full min-w-0">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData} margin={margin} barGap={2} barCategoryGap="18%">
-          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
-          <XAxis
-            dataKey="label"
-            tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            interval={0}
-            angle={-20}
-            textAnchor="end"
-            height={40}
-          />
-          <YAxis
-            tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
-            tickLine={false}
-            axisLine={false}
-            width={32}
-          />
-          <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(255,85,0,0.04)" }} />
-          <Legend
-            wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
-            formatter={(value) => <span className="text-muted-foreground">{value}</span>}
-          />
-          <Bar
-            dataKey="tangerino"
-            name={tangerinoLabel}
-            fill="#f59e0b"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={36}
-          />
-          <Bar
-            dataKey="orange"
-            name={orangeLabel}
-            fill="#ff5500"
-            radius={[4, 4, 0, 0]}
-            maxBarSize={36}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="space-y-3">
+      <ChartLegend tangerinoLabel={tangerinoLabel} orangeLabel={orangeLabel} />
+      <div className="h-[340px] w-full min-w-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={chartData} margin={margin} barGap={3} barCategoryGap="20%">
+            <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(15,23,42,0.06)" />
+            <XAxis
+              dataKey="label"
+              tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
+              tickLine={false}
+              axisLine={false}
+              interval={0}
+              angle={-32}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis
+              tick={{ fontSize: 10, fill: "var(--ftime-muted)" }}
+              tickLine={false}
+              axisLine={false}
+              width={36}
+              tickFormatter={(v) => `${v}h`}
+            />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={{ fill: "rgba(255,85,0,0.04)" }}
+              labelFormatter={(_, payload) => {
+                const item = payload?.[0]?.payload as { fullName?: string; label?: string } | undefined;
+                return item?.fullName ?? item?.label ?? "";
+              }}
+            />
+            <Bar
+              dataKey="tangerino"
+              name={tangerinoLabel}
+              fill={TANGERINO_COLOR}
+              radius={[4, 4, 0, 0]}
+              maxBarSize={32}
+            />
+            <Bar
+              dataKey="orange"
+              name={orangeLabel}
+              fill={ORANGE_COLOR}
+              radius={[4, 4, 0, 0]}
+              maxBarSize={32}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
