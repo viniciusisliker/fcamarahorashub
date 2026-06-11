@@ -1,3 +1,4 @@
+import { getApontamentosPlanilha, usePlanilhaData } from "@/lib/data/planilha";
 import { APONTAMENTOS_MOCK } from "@/lib/mock/apontamentos";
 import { createClient } from "@/lib/supabase/server";
 import type { Apontamento, StatusApontamento } from "@/lib/types/apontamento";
@@ -38,11 +39,16 @@ export function useMockData(): boolean {
   return process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false";
 }
 
-export function getDataSource(): "mock" | "supabase" {
+export function getDataSource(): "mock" | "supabase" | "planilha" {
+  if (usePlanilhaData()) return "planilha";
   return useMockData() ? "mock" : "supabase";
 }
 
 export async function getApontamentos(): Promise<Apontamento[]> {
+  if (usePlanilhaData()) {
+    return getApontamentosPlanilha();
+  }
+
   if (useMockData()) {
     return APONTAMENTOS_MOCK;
   }

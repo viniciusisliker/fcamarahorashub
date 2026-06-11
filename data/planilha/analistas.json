@@ -1,0 +1,93 @@
+[
+  {
+    "nome": "Adelson Luiz Amorim",
+    "email": "adelson.amorim@fcamara.com",
+    "cargo": "ANALISTA SEGURANÇA DA INFORMACAO SR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Adriano Dos Santos Moreira",
+    "email": "adriano.moreira@fcamara.com",
+    "cargo": "ANALISTA DE SISTEMAS OPERACIONAIS PL",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Diego Grigorjevs",
+    "email": "diego.grigorjevs@fcamara.com",
+    "cargo": "SERVICE DELIVERY MANAGER JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Douglas Silva Carneiro",
+    "email": "douglas.carneiro@fcamara.com",
+    "cargo": "ANALISTA DE SISTEMAS JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Fabio Gomes De Sousa",
+    "email": "fabio.sousa@fcamara.com",
+    "cargo": "ANALISTA DE SISTEMAS JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Gilmarcio Rocha De Sant Anna",
+    "email": "gilmarcio.rocha@fcamara.com",
+    "cargo": "ANALISTA SEGURANÇA DA INFORMACAO SR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Izabella Santos Franco Lima",
+    "email": "izabella.lima@fcamara.com",
+    "cargo": "ANALISTA DE SISTEMAS JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Jefferson Primo Do Carmo",
+    "email": "jefferson.carmo@fcamara.com",
+    "cargo": "ANALISTA INFRA/CLOUD PL",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Luciano Ferreira De Melo",
+    "email": "luciano.melo@fcamara.com",
+    "cargo": "ANALISTA DE GOVERNANÇA JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Marcelo Roberto Cardinale Dos Santos",
+    "email": "marcelo.santos@fcamara.com",
+    "cargo": "ANALISTA DE REDES PL",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Marcio Caldas Goncalves",
+    "email": "marcio.goncalves@fcamara.com",
+    "cargo": "ANALISTA DE BACKUP PL",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Thiago Mota Dos Santos",
+    "email": "thiago.santos@fcamara.com",
+    "cargo": "ANALISTA DE REDES PL",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  },
+  {
+    "nome": "Vinicius Santos De Morais",
+    "email": "vinicius.morais@fcamara.com",
+    "cargo": "DESENVOLVEDOR RPA JR",
+    "responsavel": "Sandro Marcelo Rodrigues",
+    "status": "Ativo"
+  }
+]

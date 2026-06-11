@@ -15,6 +15,7 @@ import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { HoursChart } from "@/components/hub/hours-chart";
 import { KpiCard } from "@/components/hub/kpi-card";
+import { PlanilhaChartsSection } from "@/components/hub/planilha-charts-section";
 import { StatusBadge } from "@/components/hub/status-badge";
 import { StatusLegend, StatusRing } from "@/components/hub/status-ring";
 import { usePeriod } from "@/components/layout/period-context";
@@ -156,6 +157,8 @@ export default function DashboardPage() {
           }
         />
       </div>
+
+      <PlanilhaChartsSection />
 
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
         <div className="rounded-[var(--radius-card)] border border-border/80 bg-white/90 p-4 shadow-[var(--shadow-card)] backdrop-blur-sm sm:p-6 lg:col-span-8">

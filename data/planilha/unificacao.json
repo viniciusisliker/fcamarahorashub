@@ -1,0 +1,197 @@
+[
+  {
+    "analista": "Adelson Luiz Amorim",
+    "tangerino": {
+      "horasNormais": 56.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.0
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 64.0
+    }
+  },
+  {
+    "analista": "Adriano Dos Santos Moreira",
+    "tangerino": {
+      "horasNormais": 56.92,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.92
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.92
+    }
+  },
+  {
+    "analista": "Diego Grigorjevs",
+    "tangerino": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 0.0
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 0.0
+    }
+  },
+  {
+    "analista": "Douglas Silva Carneiro",
+    "tangerino": {
+      "horasNormais": 55.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 55.0
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 55.0
+    }
+  },
+  {
+    "analista": "Fabio Gomes De Sousa",
+    "tangerino": {
+      "horasNormais": 56.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.0
+    },
+    "orange": {
+      "horasNormais": 1.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.0
+    }
+  },
+  {
+    "analista": "Gilmarcio Rocha De Sant Anna",
+    "tangerino": {
+      "horasNormais": 56.97,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.97
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.97
+    }
+  },
+  {
+    "analista": "Izabella Santos Franco Lima",
+    "tangerino": {
+      "horasNormais": 55.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 55.0
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 44.0
+    }
+  },
+  {
+    "analista": "Jefferson Primo Do Carmo",
+    "tangerino": {
+      "horasNormais": 56.95,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.95
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.97
+    }
+  },
+  {
+    "analista": "Luciano Ferreira De Melo",
+    "tangerino": {
+      "horasNormais": 58.17,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 58.17
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 58.17
+    }
+  },
+  {
+    "analista": "Marcelo Roberto Cardinale Dos Santos",
+    "tangerino": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 0.0
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.0
+    }
+  },
+  {
+    "analista": "Marcio Caldas Goncalves",
+    "tangerino": {
+      "horasNormais": 24.38,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 24.38
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 32.38
+    }
+  },
+  {
+    "analista": "Thiago Mota Dos Santos",
+    "tangerino": {
+      "horasNormais": 67.03,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 67.03
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 56.0
+    }
+  },
+  {
+    "analista": "Vinicius Santos De Morais",
+    "tangerino": {
+      "horasNormais": 52.15,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 52.15
+    },
+    "orange": {
+      "horasNormais": 0.0,
+      "horasExtras": 0.0,
+      "sobreaviso": 0.0,
+      "total": 33.0
+    }
+  }
+]
