@@ -1,7 +1,6 @@
 "use client";
 
 import { BrandLogo } from "@/components/brand/brand-logo";
-import { InstallAppPrompt } from "@/components/pwa/install-app-prompt";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -10,7 +9,6 @@ import {
   ClipboardList,
   FileBarChart,
   LayoutDashboard,
-  Sparkles,
   Users,
   X,
 } from "lucide-react";
@@ -83,7 +81,7 @@ export function Sidebar({
       >
         <div
           className={cn(
-            "flex shrink-0 min-h-14 items-center justify-between px-4 sm:px-5 lg:min-h-[72px]",
+            "flex shrink-0 min-h-14 items-center justify-between px-4 sm:px-5 lg:min-h-[72px] lg:border-t-2 lg:border-t-primary/40",
             isCollapsed && "lg:justify-center lg:px-2"
           )}
         >
@@ -186,45 +184,6 @@ export function Sidebar({
             );
           })}
           </nav>
-
-          <div className={cn("mt-auto space-y-2 px-3 pb-3", isCollapsed && "lg:px-2")}>
-            {isCollapsed ? (
-              <div className="hidden justify-center lg:flex">
-                <InstallAppPrompt
-                  variant="icon"
-                  className="h-10 w-10 rounded-xl border-white/10 bg-white/[0.06] text-white hover:bg-white/10 hover:text-white"
-                />
-              </div>
-            ) : (
-              <InstallAppPrompt variant="button" />
-            )}
-
-            {!isCollapsed ? (
-              <div className="glass-dark hidden rounded-2xl p-4 lg:block">
-                <div className="mb-2 flex items-center gap-2">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                    <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                  </span>
-                  <span className="eyebrow text-primary/90">Insight</span>
-                </div>
-                <p className="text-xs leading-relaxed text-white/50">
-                  Acompanhe horas, aprovações e produtividade da equipe em tempo real.
-                </p>
-              </div>
-            ) : null}
-
-            <div className="glass-dark rounded-2xl p-4 lg:hidden">
-              <div className="mb-2 flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                </span>
-                <span className="eyebrow text-primary/90">Insight</span>
-              </div>
-              <p className="text-xs leading-relaxed text-white/50">
-                Acompanhe horas, aprovações e produtividade da equipe em tempo real.
-              </p>
-            </div>
-          </div>
         </div>
 
         <div

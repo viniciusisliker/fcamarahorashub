@@ -26,7 +26,7 @@ export function Header({
   const mesLabel = format(inicio, "MMMM yyyy", { locale: ptBR });
 
   return (
-    <header className="relative z-10 flex min-h-14 shrink-0 items-center gap-2 overflow-hidden border-b border-[var(--ftime-border)] bg-card px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] shadow-[var(--shadow-card)] before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-1 before:bg-gradient-to-r before:from-[#c93a00] before:via-primary before:to-[#ff8c42] max-lg:rounded-none lg:rounded-tl-[36px] sm:gap-3 sm:px-4 lg:min-h-[72px] lg:gap-4 lg:px-8 lg:pb-0 lg:pt-[env(safe-area-inset-top)]">
+    <header className="relative z-10 flex min-h-14 shrink-0 items-center gap-2 border-b border-[var(--ftime-border)] bg-card px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] shadow-[var(--shadow-card)] before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-1 before:bg-gradient-to-r before:from-[#c93a00] before:via-primary before:to-[#ff8c42] sm:gap-3 sm:px-4 lg:min-h-[72px] lg:gap-4 lg:border-t-2 lg:border-t-primary/40 lg:px-8 lg:pb-0 lg:pt-[env(safe-area-inset-top)] lg:before:top-[2px]">
       <Button
         variant="ghost"
         size="icon"

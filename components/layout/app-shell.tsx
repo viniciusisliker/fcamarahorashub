@@ -43,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             onStartResize={startResize}
             onResetWidth={resetWidth}
           />
-          <div className="hub-main-frame mesh-bg dot-grid flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden max-lg:rounded-none lg:shadow-[-8px_0_32px_rgba(0,0,0,0.12)]">
+          <div className="mesh-bg dot-grid flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <Header
               onMenuClick={() => setSidebarOpen(true)}
               sidebarCollapsed={sidebarCollapsed}

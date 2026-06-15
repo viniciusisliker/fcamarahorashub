@@ -168,32 +168,6 @@ body {
   background: rgba(255, 255, 255, 0.16);
 }
 
-/* Painel principal — canto superior esquerdo alinhado à sidebar */
-.hub-main-frame {
-  position: relative;
-}
-
-@media (min-width: 1024px) {
-  .hub-main-frame {
-    border-top-left-radius: 36px;
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  .hub-main-frame::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 36px;
-    height: 36px;
-    background-color: var(--card);
-    border-bottom-right-radius: 36px;
-    pointer-events: none;
-  }
-}
-
 /* ─── Layout hub ─── */
 .hub-page {
   display: flex;

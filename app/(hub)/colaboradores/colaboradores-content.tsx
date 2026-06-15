@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Clock, Search, UserCheck, Users, UserX } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronDown, Clock, Search, UserCheck, Users, UserX } from "lucide-react";
 import { ColaboradoresTable } from "@/components/hub/colaboradores-table";
 import { DataLoadError } from "@/components/hub/data-load-error";
 import { HubPanel } from "@/components/hub/hub-panel";
@@ -9,6 +9,7 @@ import { KpiCard } from "@/components/hub/kpi-card";
 import { PageHeader } from "@/components/layout/page-header";
 import { useHubData } from "@/components/layout/hub-data-context";
 import { usePeriod } from "@/components/layout/period-context";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -34,6 +35,8 @@ import { useApontamentos } from "@/lib/hooks/use-apontamentos";
 import { useDataSource } from "@/lib/hooks/use-data-source";
 import type { ColaboradoresSortKey } from "@/lib/types/colaborador";
 
+const PAGE_SIZE = 30;
+
 export function ColaboradoresPageContent() {
   const { inicio, fim } = usePeriod();
   const { apontamentos, loading, error, refetch } = useApontamentos();
@@ -48,6 +51,7 @@ export function ColaboradoresPageContent() {
   >("todos");
   const [sortKey, setSortKey] = useState<ColaboradoresSortKey>("nome");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const colaboradores = useMemo(
     () => buildColaboradoresResumo(apontamentos, inicio, fim, analistas),
@@ -60,6 +64,17 @@ export function ColaboradoresPageContent() {
     () => sortColaboradores(filterColaboradores(colaboradores, { busca, equipe, status }), sortKey, sortDirection),
     [busca, colaboradores, equipe, sortDirection, sortKey, status]
   );
+
+  const visibleItems = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount]
+  );
+
+  const hasMore = visibleCount < filtered.length;
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [busca, equipe, status, sortKey, sortDirection, inicio, fim]);
 
   const periodoItems = useMemo(
     () => filterByPeriodo(apontamentos, inicio, fim),
@@ -156,7 +171,7 @@ export function ColaboradoresPageContent() {
 
       <HubPanel
         title="Lista da equipe"
-        description={`${filtered.length} de ${colaboradores.length} colaboradores`}
+        description={`Exibindo ${visibleItems.length} de ${filtered.length} colaboradores`}
       >
         <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
           <div className="relative min-w-0 flex-1">
@@ -202,12 +217,26 @@ export function ColaboradoresPageContent() {
         </div>
 
         <ColaboradoresTable
-          items={filtered}
+          items={visibleItems}
           sortKey={sortKey}
           sortDirection={sortDirection}
           onSort={handleSort}
           showCadastroColumns={planilhaAvailable}
         />
+
+        {hasMore ? (
+          <div className="mt-4 flex justify-center">
+            <Button
+              type="button"
+              variant="outline"
+              className="gap-2 rounded-full"
+              onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+            >
+              Mostrar mais
+              <ChevronDown className="h-4 w-4" aria-hidden />
+            </Button>
+          </div>
+        ) : null}
       </HubPanel>
     </div>
   );
