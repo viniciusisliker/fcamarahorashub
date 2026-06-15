@@ -8,6 +8,7 @@ export interface CommandStat {
   value: string;
   icon?: LucideIcon;
   accent?: "orange" | "white" | "amber";
+  href?: string;
 }
 
 interface CommandHeroProps {
@@ -69,18 +70,19 @@ export function CommandHero({
       <div className="relative mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:mt-8">
         {stats.map((stat) => {
           const Icon = stat.icon;
-          return (
-            <div
-              key={stat.label}
-              className={cn(
-                "rounded-2xl border px-4 py-3.5 backdrop-blur-md sm:px-5 sm:py-4",
-                stat.accent === "orange"
-                  ? "border-primary/40 bg-primary/15"
-                  : stat.accent === "amber"
-                    ? "border-amber-400/30 bg-amber-400/10"
-                    : "border-white/10 bg-white/[0.06]"
-              )}
-            >
+          const cardClassName = cn(
+            "rounded-2xl border px-4 py-3.5 backdrop-blur-md sm:px-5 sm:py-4",
+            stat.accent === "orange"
+              ? "border-primary/40 bg-primary/15"
+              : stat.accent === "amber"
+                ? "border-amber-400/30 bg-amber-400/10"
+                : "border-white/10 bg-white/[0.06]",
+            stat.href &&
+              "cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-white/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+          );
+
+          const content = (
+            <>
               <div className="mb-1 flex items-center justify-between gap-2">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-white/45 sm:text-[11px]">
                   {stat.label}
@@ -88,6 +90,21 @@ export function CommandHero({
                 {Icon ? <Icon className="h-4 w-4 text-primary" aria-hidden /> : null}
               </div>
               <p className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">{stat.value}</p>
+            </>
+          );
+
+          return stat.href ? (
+            <Link
+              key={stat.label}
+              href={stat.href}
+              className={cardClassName}
+              aria-label={`${stat.label}: ${stat.value}`}
+            >
+              {content}
+            </Link>
+          ) : (
+            <div key={stat.label} className={cardClassName}>
+              {content}
             </div>
           );
         })}

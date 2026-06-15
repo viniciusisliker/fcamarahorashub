@@ -133,11 +133,13 @@ export default function DashboardPage() {
             label: "Apontamentos",
             value: String(periodoItems.length),
             icon: ClipboardList,
+            href: "/apontamentos",
           },
           {
             label: "Colaboradores",
             value: String(countColaboradoresComLancamento(periodoItems)),
             icon: Users,
+            href: "/colaboradores",
           },
           ...(isPlanilhaReadOnly
             ? []
