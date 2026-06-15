@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { PlanilhaScopeBanner } from "@/components/hub/planilha-scope-banner";
 import { InstallAppPrompt } from "@/components/pwa/install-app-prompt";
 import { InstallAppProvider } from "@/components/pwa/install-app-provider";
 import { Header } from "./header";
@@ -52,7 +51,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <main className="hub-scroll-pane min-h-0 flex-1 px-3 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-4 sm:py-6 lg:px-8 lg:py-8">
               <div className="mx-auto w-full max-w-[1440px] space-y-4">
                 <InstallAppPrompt variant="banner" />
-                <PlanilhaScopeBanner />
                 {children}
               </div>
             </main>
