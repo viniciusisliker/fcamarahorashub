@@ -77,7 +77,7 @@ function ChartTooltip({
 }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-border/80 bg-white/95 px-3 py-2 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+    <div className="chart-tooltip px-3 py-2 backdrop-blur-sm">
       <p className="mb-1.5 text-xs font-semibold text-foreground">{label}</p>
       {payload.map((p) => (
         <p key={p.name} className="text-xs text-muted-foreground">

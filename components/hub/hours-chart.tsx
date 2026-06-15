@@ -27,7 +27,7 @@ function CustomTooltip({
 }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-border/80 bg-white/95 px-3 py-2 shadow-[var(--shadow-elevated)] backdrop-blur-sm sm:px-4 sm:py-3">
+    <div className="chart-tooltip px-3 py-2 backdrop-blur-sm sm:px-4 sm:py-3">
       <p className="text-[11px] font-medium text-muted-foreground sm:text-xs">{label}</p>
       <p className="mt-0.5 text-base font-bold text-primary sm:text-lg">{payload[0].value}h</p>
     </div>
@@ -76,7 +76,7 @@ export function HoursChart({ data }: HoursChartProps) {
           <CartesianGrid
             strokeDasharray="4 4"
             vertical={false}
-            stroke="rgba(15,23,42,0.06)"
+            stroke="var(--ftime-border)"
           />
           <XAxis
             dataKey="label"

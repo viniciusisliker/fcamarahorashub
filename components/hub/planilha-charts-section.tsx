@@ -17,7 +17,7 @@ export function PlanilhaChartsSection() {
   const { meta, unificacao, loading, available } = usePlanilhaGraficos();
 
   if (loading) {
-    return <div className="h-64 animate-pulse rounded-[var(--radius-card)] bg-white/60" />;
+    return <div className="h-64 animate-pulse rounded-[var(--radius-card)] bg-muted/60" />;
   }
 
   if (!available || !meta) return null;

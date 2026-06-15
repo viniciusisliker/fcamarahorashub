@@ -6,15 +6,14 @@ Hub web para gestores e RH consultarem apontamentos de horas dos colaboradores.
 
 - **Next.js 16** (App Router) + TypeScript + Tailwind CSS v4
 - **Deploy:** [Vercel](https://vercel.com) — [ftimesheethub.vercel.app](https://ftimesheethub.vercel.app)
-- **Dados:** [Supabase](https://supabase.com) `fcamarahorashub` — produção via Supabase; local usa mock por padrão
-- **Repo:** GitHub `fcamarahorashub`
+- **Dados:** mock local, [Supabase](https://supabase.com) ou JSON da planilha Tommy (`data/planilha/`)
+- **PWA:** instalação no mobile/desktop
+- **Tema:** claro / escuro com persistência
 
 ## Desenvolvimento local
 
-> **Workspace recomendado:** `C:\dev\fcamarahorashub` (fora do OneDrive). O projeto foi validado com `npm run build` neste caminho. Evite `npm install` em pastas sincronizadas pelo OneDrive.
-
 ```bash
-cd C:\dev\fcamarahorashub
+cd C:\dev\FCamara\fcamarahorashub
 copy .env.example .env.local
 npm install
 npm run dev
@@ -26,16 +25,33 @@ Abra [http://localhost:3000](http://localhost:3000) → redireciona para `/dashb
 
 | Rota | Descrição |
 |------|-----------|
-| `/` | Redireciona para `/dashboard` |
-| `/dashboard` | KPIs e gráfico |
-| `/apontamentos` | Tabela com filtros e detalhe |
+| `/dashboard` | KPIs, gráficos e visão geral |
+| `/apontamentos` | Tabela com filtros, ordenação, export CSV |
+| `/relatorios` | Relatórios consolidados e comparativo Tommy |
+
+## Fonte de dados
+
+Configure em `.env.local`:
+
+| Variável | Valores | Descrição |
+|----------|---------|-----------|
+| `NEXT_PUBLIC_DATA_SOURCE` | `planilha` \| `supabase` \| `mock` | Fonte principal |
+| `NEXT_PUBLIC_USE_MOCK_DATA` | `true` \| `false` | Fallback mock quando Supabase ausente |
+
+**Planilha Tommy:** execute `npm run export-planilha` (requer Python + `pip install -r scripts/requirements.txt`).
 
 ## Variáveis de ambiente
 
-Veja [.env.example](.env.example). Com `NEXT_PUBLIC_USE_MOCK_DATA=true` (padrão), nenhuma credencial Supabase é necessária.
+Veja [.env.example](.env.example). Credenciais Supabase devem ficar nas **Environment Variables da Vercel**, não versionadas.
+
+## Testes
+
+```bash
+npm test
+```
 
 ## Deploy
 
-Instruções completas em [docs/DEPLOY.md](docs/DEPLOY.md).
+Instruções em [docs/DEPLOY.md](docs/DEPLOY.md).
 
 Design tokens: [docs/design-tokens.md](docs/design-tokens.md).

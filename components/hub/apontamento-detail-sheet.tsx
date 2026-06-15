@@ -81,7 +81,7 @@ export function ApontamentoDetailSheet({
             ].map(({ label, value }) => (
               <div
                 key={label}
-                className="rounded-xl border border-border/80 bg-white/80 p-4"
+                className="rounded-xl border border-border/80 bg-card/80 p-4"
               >
                 <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {label}
@@ -91,7 +91,7 @@ export function ApontamentoDetailSheet({
             ))}
           </dl>
 
-          <div className="rounded-xl border border-border/80 bg-white/80 p-4">
+          <div className="rounded-xl border border-border/80 bg-card/80 p-4">
             <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Descrição
             </dt>
@@ -99,22 +99,22 @@ export function ApontamentoDetailSheet({
           </div>
 
           {apontamento.aprovadoPor ? (
-            <div className="rounded-xl border border-emerald-200/80 bg-emerald-50/80 p-4">
-              <dt className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
+              <dt className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">
                 Aprovado por
               </dt>
-              <dd className="mt-1 font-semibold text-emerald-900">
+              <dd className="mt-1 font-semibold text-emerald-900 dark:text-emerald-100">
                 {apontamento.aprovadoPor}
               </dd>
             </div>
           ) : null}
 
           {apontamento.observacoes ? (
-            <div className="rounded-xl border border-amber-200/80 bg-amber-50/80 p-4">
-              <dt className="text-xs font-semibold uppercase tracking-wide text-amber-700">
+            <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+              <dt className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">
                 Observações
               </dt>
-              <dd className="mt-2 text-sm leading-relaxed text-amber-950">
+              <dd className="mt-2 text-sm leading-relaxed text-amber-950 dark:text-amber-50">
                 {apontamento.observacoes}
               </dd>
             </div>

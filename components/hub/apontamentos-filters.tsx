@@ -18,6 +18,7 @@ interface ApontamentosFiltersProps {
   onChange: (patch: Partial<ApontamentosFilters>) => void;
   colaboradores: { id: string; nome: string }[];
   projetos: string[];
+  onClearAll?: () => void;
 }
 
 export function ApontamentosFiltersBar({
@@ -25,12 +26,24 @@ export function ApontamentosFiltersBar({
   onChange,
   colaboradores,
   projetos,
+  onClearAll,
 }: ApontamentosFiltersProps) {
   return (
     <div className="hub-panel">
-      <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
-        <SlidersHorizontal className="h-4 w-4 text-primary" aria-hidden />
-        Filtros
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <SlidersHorizontal className="h-4 w-4 text-primary" aria-hidden />
+          Filtros
+        </div>
+        {onClearAll ? (
+          <button
+            type="button"
+            onClick={onClearAll}
+            className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Limpar filtros
+          </button>
+        ) : null}
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-2 sm:col-span-2 lg:col-span-1">

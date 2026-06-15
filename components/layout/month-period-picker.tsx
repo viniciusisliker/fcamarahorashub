@@ -73,7 +73,7 @@ export function MonthPeriodPicker({ className }: { className?: string }) {
         type="button"
         variant="outline"
         size="icon"
-        className="h-9 w-9 shrink-0 rounded-full border-border/80 bg-white/80"
+        className="h-9 w-9 shrink-0 rounded-full border-border/80 bg-card/80"
         onClick={() => shiftMes(-1)}
         aria-label="Mês anterior"
       >
@@ -84,7 +84,7 @@ export function MonthPeriodPicker({ className }: { className?: string }) {
         type="button"
         variant="outline"
         size="sm"
-        className="h-9 min-w-[9.5rem] shrink-0 gap-1.5 rounded-full border-border/80 bg-white/80 px-3 shadow-sm sm:min-w-[11rem] sm:gap-2 sm:px-4"
+        className="h-9 min-w-[9.5rem] shrink-0 gap-1.5 rounded-full border-border/80 bg-card/80 px-3 shadow-sm sm:min-w-[11rem] sm:gap-2 sm:px-4"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls={panelId}
@@ -102,7 +102,7 @@ export function MonthPeriodPicker({ className }: { className?: string }) {
         type="button"
         variant="outline"
         size="icon"
-        className="h-9 w-9 shrink-0 rounded-full border-border/80 bg-white/80"
+        className="h-9 w-9 shrink-0 rounded-full border-border/80 bg-card/80"
         onClick={() => shiftMes(1)}
         aria-label="Próximo mês"
       >
@@ -114,7 +114,7 @@ export function MonthPeriodPicker({ className }: { className?: string }) {
           id={panelId}
           role="dialog"
           aria-label="Selecionar mês"
-          className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[min(100vw-1.5rem,18rem)] rounded-[var(--radius-card)] border border-border/80 bg-white p-4 shadow-xl"
+          className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[min(100vw-1.5rem,18rem)] rounded-[var(--radius-card)] border border-border/80 bg-card p-4 shadow-xl"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Período

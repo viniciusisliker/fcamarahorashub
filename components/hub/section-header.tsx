@@ -21,7 +21,7 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 rounded-[var(--radius-card)] border border-primary/15 bg-gradient-to-r from-primary/8 via-white to-white px-4 py-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:px-5 sm:py-4",
+        "flex flex-col gap-3 rounded-[var(--radius-card)] border border-primary/15 bg-gradient-to-r from-primary/8 via-card to-card px-4 py-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:px-5 sm:py-4",
         className
       )}
     >

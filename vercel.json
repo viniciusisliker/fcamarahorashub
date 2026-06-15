@@ -3,8 +3,6 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "https://kjfwstmxldxbbuwmjtji.supabase.co",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqZndzdG14bGR4YmJ1d21qdGppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTQ0NDEsImV4cCI6MjA5NTg5MDQ0MX0.Br547EYvO5daE588vJQh7AOgseGwokMd7Im99yJ8kC4",
     "NEXT_PUBLIC_USE_MOCK_DATA": "false",
     "NEXT_PUBLIC_DATA_SOURCE": "planilha"
   }

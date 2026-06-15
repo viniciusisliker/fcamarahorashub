@@ -41,7 +41,7 @@ export function InstallAppPrompt({ variant = "button", className }: InstallAppPr
     return (
       <div
         className={cn(
-          "flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-card)] border border-primary/20 bg-gradient-to-r from-primary/10 via-white to-white px-4 py-3 shadow-sm",
+          "flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-card)] border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-card px-4 py-3 shadow-sm",
           className
         )}
       >
@@ -83,7 +83,7 @@ export function InstallAppPrompt({ variant = "button", className }: InstallAppPr
         type="button"
         variant="outline"
         size="icon"
-        className={cn("h-9 w-9 shrink-0 rounded-full border-border/80 bg-white/80", className)}
+        className={cn("h-9 w-9 shrink-0 rounded-full border-border/80 bg-card/80", className)}
         onClick={handleOpen}
         aria-label={iconLabel}
         title={iconLabel}

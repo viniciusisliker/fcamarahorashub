@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { addMonths, endOfMonth, parseISO, startOfMonth } from "date-fns";
+import { useHubData } from "@/components/layout/hub-data-context";
 
 const STORAGE_KEY = "ftimehub-periodo";
 
@@ -60,6 +61,7 @@ function applyMonth(year: number, monthIndex: number) {
 }
 
 export function PeriodProvider({ children }: { children: ReactNode }) {
+  const { planilhaMeta, planilhaAvailable, planilhaLoading } = useHubData();
   const now = new Date();
   const [inicio, setInicio] = useState(() => startOfMonth(now));
   const [fim, setFim] = useState(() => endOfMonth(now));
@@ -67,42 +69,27 @@ export function PeriodProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (initialized.current) return;
-    initialized.current = true;
 
     const stored = loadStoredPeriod();
     if (stored) {
+      initialized.current = true;
       setInicio(stored.inicio);
       setFim(stored.fim);
       return;
     }
 
-    let cancelled = false;
+    if (planilhaLoading) return;
+    initialized.current = true;
 
-    async function syncPlanilhaDefault() {
-      try {
-        const res = await fetch("/api/planilha/graficos");
-        if (!res.ok || cancelled) return;
-        const data = (await res.json()) as {
-          meta?: { periodo?: { inicio?: string | null } };
-        };
-        const inicioIso = data.meta?.periodo?.inicio;
-        if (!inicioIso) return;
-        const d = parseISO(inicioIso);
-        const next = applyMonth(d.getFullYear(), d.getMonth());
-        setInicio(next.inicio);
-        setFim(next.fim);
-        persistPeriod(next.inicio);
-      } catch {
-        /* mantém mês atual */
-      }
+    const inicioIso = planilhaMeta?.periodo?.inicio;
+    if (planilhaAvailable && inicioIso) {
+      const d = parseISO(inicioIso);
+      const next = applyMonth(d.getFullYear(), d.getMonth());
+      setInicio(next.inicio);
+      setFim(next.fim);
+      persistPeriod(next.inicio);
     }
-
-    void syncPlanilhaDefault();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  }, [planilhaAvailable, planilhaLoading, planilhaMeta]);
 
   const setPeriodo = useCallback((start: Date, end: Date) => {
     const monthStart = startOfMonth(start);

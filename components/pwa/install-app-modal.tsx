@@ -45,7 +45,7 @@ export function InstallAppModal({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm rounded-[var(--radius-card)] border border-border/80 bg-white p-5 shadow-2xl"
+        className="w-full max-w-sm rounded-[var(--radius-card)] border border-border/80 bg-card p-5 shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="install-app-title"

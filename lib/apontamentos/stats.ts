@@ -37,19 +37,38 @@ export function mediaHorasPorDiaUtil(items: Apontamento[]): number {
   return Math.round((sumHoras(items) / dias.size) * 10) / 10;
 }
 
-export function horasPorDia(items: Apontamento[]): { data: string; horas: number; label: string }[] {
+export function horasPorDia(
+  items: Apontamento[],
+  limit?: number
+): { data: string; horas: number; label: string }[] {
   const map = new Map<string, number>();
   for (const a of items) {
     map.set(a.data, (map.get(a.data) ?? 0) + a.horas);
   }
-  return Array.from(map.entries())
+  const sorted = Array.from(map.entries())
     .sort(([a], [b]) => a.localeCompare(b))
-    .slice(-14)
     .map(([data, horas]) => ({
       data,
       horas,
       label: format(parseISO(data), "dd/MM", { locale: ptBR }),
     }));
+  return limit ? sorted.slice(-limit) : sorted;
+}
+
+export function horasPorColaborador(
+  items: Apontamento[]
+): { colaborador: string; horas: number; apontamentos: number }[] {
+  const map = new Map<string, { horas: number; apontamentos: number }>();
+  for (const a of items) {
+    const current = map.get(a.colaboradorNome) ?? { horas: 0, apontamentos: 0 };
+    map.set(a.colaboradorNome, {
+      horas: current.horas + a.horas,
+      apontamentos: current.apontamentos + 1,
+    });
+  }
+  return Array.from(map.entries())
+    .map(([colaborador, stats]) => ({ colaborador, ...stats }))
+    .sort((a, b) => b.horas - a.horas);
 }
 
 export function horasPorProjeto(items: Apontamento[]): { projeto: string; horas: number }[] {
