@@ -2,11 +2,11 @@
 
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { InstallAppPrompt } from "@/components/pwa/install-app-prompt";
+import { MonthPeriodPicker } from "@/components/layout/month-period-picker";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CalendarDays, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatPeriodoLabel } from "@/lib/apontamentos/stats";
 import { usePeriod } from "./period-context";
 
 interface HeaderProps {
@@ -14,7 +14,7 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
-  const { inicio, fim, setMesAtual } = usePeriod();
+  const { inicio } = usePeriod();
   const mesLabel = format(inicio, "MMMM yyyy", { locale: ptBR });
 
   return (
@@ -41,19 +41,7 @@ export function Header({ onMenuClick }: HeaderProps) {
 
       <div className="flex shrink-0 items-center gap-2">
         <InstallAppPrompt variant="icon" />
-        <Button
-          variant="outline"
-          size="sm"
-          className="h-9 shrink-0 gap-1.5 rounded-full border-border/80 bg-white/80 px-3 shadow-sm sm:gap-2 sm:px-4"
-          onClick={setMesAtual}
-        >
-          <CalendarDays className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-          <span className="hidden lg:inline">{formatPeriodoLabel(inicio, fim)}</span>
-          <span className="hidden sm:inline lg:hidden">
-            {format(inicio, "dd/MM", { locale: ptBR })} – {format(fim, "dd/MM", { locale: ptBR })}
-          </span>
-          <span className="capitalize sm:hidden">{mesLabel}</span>
-        </Button>
+        <MonthPeriodPicker />
       </div>
     </header>
   );
