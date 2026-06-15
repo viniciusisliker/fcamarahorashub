@@ -1,10 +1,10 @@
-import { Clock } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const sizeMap = {
-  sm: { box: "h-8 w-8", icon: "h-4 w-4", text: "text-sm" },
-  md: { box: "h-10 w-10", icon: "h-5 w-5", text: "text-sm" },
-  lg: { box: "h-16 w-16", icon: "h-8 w-8", text: "text-2xl" },
+  sm: { box: "h-8 w-8", px: 32 },
+  md: { box: "h-10 w-10", px: 40 },
+  lg: { box: "h-16 w-16", px: 64 },
 } as const;
 
 interface BrandLogoProps {
@@ -24,19 +24,16 @@ export function BrandLogo({
 
   return (
     <span className={cn("inline-flex items-center gap-3", className)}>
-      <span
-        className={cn(
-          "relative flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-[#ff6b2b] to-[#c93a00] shadow-lg shadow-primary/35",
-          s.box
-        )}
-        aria-hidden
-      >
-        <Clock className={cn(s.icon, "text-white drop-shadow-sm")} strokeWidth={2.25} />
-        <span className="pointer-events-none absolute -inset-px rounded-2xl ring-1 ring-white/25" />
-        <span className="pointer-events-none absolute inset-1 rounded-[14px] border border-white/15" />
-      </span>
+      <Image
+        src="/pwa/icon-192.png"
+        alt=""
+        width={s.px}
+        height={s.px}
+        className={cn("shrink-0 rounded-2xl shadow-lg shadow-primary/25", s.box)}
+        priority
+      />
       {showText ? (
-        <span className={cn("font-bold tracking-tight", s.text)}>
+        <span className={cn("font-bold tracking-tight", size === "lg" ? "text-2xl" : "text-sm")}>
           <span className={tone === "dark" ? "text-white" : "text-foreground"}>
             FTimeSheet
           </span>

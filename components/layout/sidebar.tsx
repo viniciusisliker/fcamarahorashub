@@ -34,11 +34,24 @@ const navItems: NavItem[] = [
 interface SidebarProps {
   open: boolean;
   collapsed: boolean;
+  width: number;
+  isResizing?: boolean;
   onClose: () => void;
   onToggleCollapse: () => void;
+  onStartResize: (clientX: number) => void;
+  onResetWidth: () => void;
 }
 
-export function Sidebar({ open, collapsed, onClose, onToggleCollapse }: SidebarProps) {
+export function Sidebar({
+  open,
+  collapsed,
+  width,
+  isResizing = false,
+  onClose,
+  onToggleCollapse,
+  onStartResize,
+  onResetWidth,
+}: SidebarProps) {
   const pathname = usePathname();
   const isCollapsed = collapsed;
 
@@ -55,14 +68,20 @@ export function Sidebar({ open, collapsed, onClose, onToggleCollapse }: SidebarP
 
       <aside
         className={cn(
-          "mesh-dark fixed inset-y-0 left-0 z-50 flex w-[min(100vw-2.5rem,280px)] flex-col border-r-2 border-primary/40 pt-[env(safe-area-inset-top)] shadow-[4px_0_32px_rgba(255,85,0,0.08)] transition-[transform,width] duration-300 ease-out lg:static lg:translate-x-0",
-          isCollapsed ? "lg:w-[4.5rem]" : "lg:w-[280px]",
+          "mesh-dark relative fixed inset-y-0 left-0 z-50 flex h-[100dvh] max-h-[100dvh] shrink-0 flex-col overflow-hidden border-r-2 border-primary/40 pt-[env(safe-area-inset-top)] shadow-[4px_0_32px_rgba(255,85,0,0.08)] lg:static lg:translate-x-0",
+          !isResizing && "transition-[transform,width] duration-300 ease-out",
+          isCollapsed && "lg:!w-[4.5rem]",
           open ? "translate-x-0" : "-translate-x-full"
         )}
+        style={
+          isCollapsed
+            ? undefined
+            : { width: `min(calc(100vw - 2.5rem), ${width}px)` }
+        }
       >
         <div
           className={cn(
-            "flex min-h-14 items-center justify-between px-4 sm:px-5 lg:min-h-[72px]",
+            "flex shrink-0 min-h-14 items-center justify-between px-4 sm:px-5 lg:min-h-[72px]",
             isCollapsed && "lg:justify-center lg:px-2"
           )}
         >
@@ -85,10 +104,28 @@ export function Sidebar({ open, collapsed, onClose, onToggleCollapse }: SidebarP
           </Button>
         </div>
 
-        <nav
-          className={cn("flex-1 space-y-1.5 px-3", isCollapsed && "lg:px-2")}
-          aria-label="Principal"
-        >
+        {!isCollapsed ? (
+          <button
+            type="button"
+            aria-label="Redimensionar menu lateral"
+            title="Arraste para redimensionar · duplo clique para resetar"
+            className="absolute -right-1 top-0 z-20 hidden h-full w-3 cursor-col-resize touch-none bg-transparent p-0 after:absolute after:inset-y-4 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-white/10 hover:after:bg-primary/70 lg:block"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              onStartResize(e.clientX);
+            }}
+            onDoubleClick={(e) => {
+              e.preventDefault();
+              onResetWidth();
+            }}
+          />
+        ) : null}
+
+        <div className="hub-scroll-pane hub-scroll-pane--sidebar flex min-h-0 flex-1 flex-col">
+          <nav
+            className={cn("space-y-1.5 px-3 pt-1", isCollapsed && "lg:px-2")}
+            aria-label="Principal"
+          >
           <p
             className={cn(
               "mb-3 px-3 text-[10px] font-semibold uppercase tracking-widest text-white/35",
@@ -146,38 +183,51 @@ export function Sidebar({ open, collapsed, onClose, onToggleCollapse }: SidebarP
               </Link>
             );
           })}
-        </nav>
+          </nav>
 
-        <div className={cn("space-y-2 px-3", isCollapsed && "lg:px-2")}>
-          {isCollapsed ? (
-            <div className="hidden justify-center lg:flex">
-              <InstallAppPrompt
-                variant="icon"
-                className="h-10 w-10 rounded-xl border-white/10 bg-white/[0.06] text-white hover:bg-white/10 hover:text-white"
-              />
-            </div>
-          ) : (
-            <InstallAppPrompt variant="button" />
-          )}
-        </div>
+          <div className={cn("mt-auto space-y-2 px-3 pb-3", isCollapsed && "lg:px-2")}>
+            {isCollapsed ? (
+              <div className="hidden justify-center lg:flex">
+                <InstallAppPrompt
+                  variant="icon"
+                  className="h-10 w-10 rounded-xl border-white/10 bg-white/[0.06] text-white hover:bg-white/10 hover:text-white"
+                />
+              </div>
+            ) : (
+              <InstallAppPrompt variant="button" />
+            )}
 
-        {!isCollapsed ? (
-          <div className="glass-dark m-3 mb-[max(0.75rem,env(safe-area-inset-bottom))] hidden rounded-2xl p-4 lg:block">
-            <div className="mb-2 flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden />
-              </span>
-              <span className="eyebrow text-primary/90">Insight</span>
+            {!isCollapsed ? (
+              <div className="glass-dark hidden rounded-2xl p-4 lg:block">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                    <Sparkles className="h-3.5 w-3.5" aria-hidden />
+                  </span>
+                  <span className="eyebrow text-primary/90">Insight</span>
+                </div>
+                <p className="text-xs leading-relaxed text-white/50">
+                  Acompanhe horas, aprovações e produtividade da equipe em tempo real.
+                </p>
+              </div>
+            ) : null}
+
+            <div className="glass-dark rounded-2xl p-4 lg:hidden">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <Sparkles className="h-3.5 w-3.5" aria-hidden />
+                </span>
+                <span className="eyebrow text-primary/90">Insight</span>
+              </div>
+              <p className="text-xs leading-relaxed text-white/50">
+                Acompanhe horas, aprovações e produtividade da equipe em tempo real.
+              </p>
             </div>
-            <p className="text-xs leading-relaxed text-white/50">
-              Acompanhe horas, aprovações e produtividade da equipe em tempo real.
-            </p>
           </div>
-        ) : null}
+        </div>
 
         <div
           className={cn(
-            "mb-[max(0.75rem,env(safe-area-inset-bottom))] px-3 pb-3 lg:pb-4",
+            "shrink-0 border-t border-white/[0.06] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
             isCollapsed && "lg:px-2"
           )}
         >
@@ -201,18 +251,6 @@ export function Sidebar({ open, collapsed, onClose, onToggleCollapse }: SidebarP
               </>
             )}
           </Button>
-        </div>
-
-        <div className="glass-dark m-3 mb-[max(0.75rem,env(safe-area-inset-bottom))] rounded-2xl p-4 lg:hidden">
-          <div className="mb-2 flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden />
-            </span>
-            <span className="eyebrow text-primary/90">Insight</span>
-          </div>
-          <p className="text-xs leading-relaxed text-white/50">
-            Acompanhe horas, aprovações e produtividade da equipe em tempo real.
-          </p>
         </div>
       </aside>
     </>

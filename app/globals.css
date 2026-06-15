@@ -146,6 +146,28 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.hub-scroll-pane {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hub-scroll-pane::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.hub-scroll-pane::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--foreground) 18%, transparent);
+}
+
+.hub-scroll-pane--sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 /* ─── Layout hub ─── */
 .hub-page {
   display: flex;
