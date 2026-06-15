@@ -11,6 +11,7 @@ import {
   FileBarChart,
   LayoutDashboard,
   Sparkles,
+  Users,
   X,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
@@ -28,6 +29,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/apontamentos", label: "Apontamentos", icon: ClipboardList },
+  { href: "/colaboradores", label: "Colaboradores", icon: Users },
   { href: "/relatorios", label: "Relatórios", icon: FileBarChart },
 ];
 
