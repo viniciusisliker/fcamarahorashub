@@ -1,7 +1,8 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import { Clock, X } from "lucide-react";
+import Image from "next/image";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -77,9 +78,13 @@ export function InstallAppModal({
         </div>
 
         <div className="mb-4 flex items-center gap-3 rounded-xl border border-border/80 bg-muted/20 p-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-[#ff6b2b] to-[#c93a00] text-white shadow-lg shadow-primary/30">
-            <Clock className="h-6 w-6" strokeWidth={2.25} aria-hidden />
-          </span>
+          <Image
+            src="/pwa/icon-192.png"
+            alt=""
+            width={48}
+            height={48}
+            className="h-12 w-12 shrink-0 rounded-2xl shadow-lg shadow-primary/25"
+          />
           <div>
             <p className="font-bold text-foreground">FTimeSheetHub</p>
             <p className="text-xs text-muted-foreground">Gestão de apontamentos</p>

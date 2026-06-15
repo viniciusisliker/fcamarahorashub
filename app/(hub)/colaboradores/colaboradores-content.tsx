@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Clock, Search, UserCheck, Users, UserX } from "lucide-react";
 import { ColaboradoresTable } from "@/components/hub/colaboradores-table";
+import { ColaboradorDetailSheet } from "@/components/hub/colaborador-detail-sheet";
 import { DataLoadError } from "@/components/hub/data-load-error";
 import { HubPanel } from "@/components/hub/hub-panel";
 import { KpiCard } from "@/components/hub/kpi-card";
@@ -24,6 +25,7 @@ import {
   getEquipesFromColaboradores,
   sortColaboradores,
 } from "@/lib/colaboradores/aggregate";
+import { buildColaboradorDetalhe } from "@/lib/colaboradores/detail";
 import {
   filterByPeriodo,
   formatHoras,
@@ -33,7 +35,7 @@ import {
 import { useAnalistasPlanilha } from "@/lib/hooks/use-analistas-planilha";
 import { useApontamentos } from "@/lib/hooks/use-apontamentos";
 import { useDataSource } from "@/lib/hooks/use-data-source";
-import type { ColaboradoresSortKey } from "@/lib/types/colaborador";
+import type { ColaboradoresSortKey, ColaboradorResumo } from "@/lib/types/colaborador";
 
 const PAGE_SIZE = 30;
 
@@ -52,6 +54,8 @@ export function ColaboradoresPageContent() {
   const [sortKey, setSortKey] = useState<ColaboradoresSortKey>("nome");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [selected, setSelected] = useState<ColaboradorResumo | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const colaboradores = useMemo(
     () => buildColaboradoresResumo(apontamentos, inicio, fim, analistas),
@@ -71,6 +75,16 @@ export function ColaboradoresPageContent() {
   );
 
   const hasMore = visibleCount < filtered.length;
+
+  const selectedDetalhe = useMemo(
+    () => (selected ? buildColaboradorDetalhe(selected, apontamentos, inicio, fim) : null),
+    [apontamentos, fim, inicio, selected]
+  );
+
+  const handleSelectColaborador = (colaborador: ColaboradorResumo) => {
+    setSelected(colaborador);
+    setSheetOpen(true);
+  };
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
@@ -221,6 +235,7 @@ export function ColaboradoresPageContent() {
           sortKey={sortKey}
           sortDirection={sortDirection}
           onSort={handleSort}
+          onSelect={handleSelectColaborador}
           showCadastroColumns={planilhaAvailable}
         />
 
@@ -238,6 +253,14 @@ export function ColaboradoresPageContent() {
           </div>
         ) : null}
       </HubPanel>
+
+      <ColaboradorDetailSheet
+        colaborador={selectedDetalhe}
+        periodoInicio={inicio}
+        periodoFim={fim}
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+      />
     </div>
   );
 }

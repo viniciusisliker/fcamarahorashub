@@ -14,6 +14,7 @@ interface ColaboradoresTableProps {
   sortKey: ColaboradoresSortKey;
   sortDirection: "asc" | "desc";
   onSort: (key: ColaboradoresSortKey) => void;
+  onSelect?: (colaborador: ColaboradorResumo) => void;
   showCadastroColumns?: boolean;
 }
 
@@ -77,6 +78,7 @@ export function ColaboradoresTable({
   sortKey,
   sortDirection,
   onSort,
+  onSelect,
   showCadastroColumns = false,
 }: ColaboradoresTableProps) {
   if (items.length === 0) {
@@ -161,9 +163,23 @@ export function ColaboradoresTable({
           {items.map((row, i) => (
             <tr
               key={row.id}
+              role={onSelect ? "button" : undefined}
+              tabIndex={onSelect ? 0 : undefined}
+              onClick={onSelect ? () => onSelect(row) : undefined}
+              onKeyDown={
+                onSelect
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelect(row);
+                      }
+                    }
+                  : undefined
+              }
               className={cn(
                 "border-b border-border/60 last:border-0",
-                i % 2 === 0 && "bg-muted/15"
+                i % 2 === 0 && "bg-muted/15",
+                onSelect && "cursor-pointer transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-inset"
               )}
             >
               <td className="px-4 py-3">
@@ -197,7 +213,11 @@ export function ColaboradoresTable({
                   </td>
                   <td className="hidden max-w-[220px] truncate px-4 py-3 text-muted-foreground xl:table-cell">
                     {row.email ? (
-                      <a href={`mailto:${row.email}`} className="hover:text-primary hover:underline">
+                      <a
+                        href={`mailto:${row.email}`}
+                        className="hover:text-primary hover:underline"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         {row.email}
                       </a>
                     ) : (
@@ -224,7 +244,10 @@ export function ColaboradoresTable({
               <td className="px-4 py-3 text-right">
                 {row.apontamentosPeriodo > 0 && !row.id.startsWith("cadastro-") ? (
                   <Button variant="ghost" size="sm" className="h-8 gap-1 rounded-full" asChild>
-                    <Link href={`/apontamentos?colaborador=${encodeURIComponent(row.id)}`}>
+                    <Link
+                      href={`/apontamentos?colaborador=${encodeURIComponent(row.id)}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       Ver horas
                       <ExternalLink className="h-3.5 w-3.5" aria-hidden />
                     </Link>

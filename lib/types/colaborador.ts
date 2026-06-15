@@ -1,3 +1,5 @@
+import type { StatusApontamento } from "@/lib/types/apontamento";
+
 export type StatusCadastroColaborador = "ativo" | "inativo" | "sem_cadastro";
 
 export interface ColaboradorResumo {
@@ -20,3 +22,16 @@ export type ColaboradoresSortKey =
   | "horas"
   | "apontamentos"
   | "status";
+
+export interface ColaboradorApontamentoResumo {
+  id: string;
+  data: string;
+  projeto: string;
+  horas: number;
+  status: StatusApontamento;
+}
+
+export interface ColaboradorDetalhe extends ColaboradorResumo {
+  projetos: string[];
+  apontamentosRecentes: ColaboradorApontamentoResumo[];
+}
