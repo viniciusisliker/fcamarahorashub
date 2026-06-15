@@ -1,7 +1,9 @@
 const DISMISS_KEY = "ftimehub-pwa-install-dismissed";
 const INSTALLED_KEY = "ftimehub-pwa-installed";
 const DISMISS_DAYS = 14;
-const SHARE_ORIGIN = "https://ftimesheethub.vercel.app";
+import { getSiteUrl } from "@/lib/site-url";
+
+const SHARE_ORIGIN = getSiteUrl();
 
 export interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;

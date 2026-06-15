@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import { PwaBootstrap } from "@/components/pwa/pwa-bootstrap";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -10,7 +11,7 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ftimesheethub.vercel.app";
+const siteUrl = getSiteUrl();
 
 const siteTitle = "FTimeSheetHub — Gestão de Apontamentos";
 const siteDescription =
