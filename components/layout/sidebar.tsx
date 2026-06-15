@@ -1,6 +1,7 @@
 "use client";
 
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { InstallAppPrompt } from "@/components/pwa/install-app-prompt";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -109,6 +110,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             );
           })}
         </nav>
+
+        <div className="space-y-2 px-3">
+          <InstallAppPrompt variant="button" />
+        </div>
 
         <div className="glass-dark m-3 mb-[max(0.75rem,env(safe-area-inset-bottom))] rounded-2xl p-4">
           <div className="mb-2 flex items-center gap-2">
