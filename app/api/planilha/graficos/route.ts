@@ -1,22 +1,22 @@
 import {
-  getPlanilhaMeta,
-  getUnificacaoPlanilha,
-  planilhaDisponivel,
-} from "@/lib/data/planilha";
+  isPlanilhaDataAvailable,
+  loadPlanilhaMeta,
+  loadUnificacaoPlanilha,
+} from "@/lib/data/planilha-store";
 
 export async function GET() {
-  if (!planilhaDisponivel()) {
+  if (!(await isPlanilhaDataAvailable())) {
     return Response.json(
-      { error: "Dados da planilha não exportados. Execute scripts/export-planilha.py" },
+      { error: "Dados da planilha indisponíveis. Execute npm run import-planilha-supabase" },
       { status: 404 }
     );
   }
 
+  const meta = await loadPlanilhaMeta();
+  const unificacao = await loadUnificacaoPlanilha();
+
   return Response.json(
-    {
-      meta: getPlanilhaMeta(),
-      unificacao: getUnificacaoPlanilha(),
-    },
-    { headers: { "X-Data-Source": "planilha" } }
+    { meta, unificacao },
+    { headers: { "X-Data-Source": process.env.NEXT_PUBLIC_DATA_SOURCE ?? "planilha" } }
   );
 }

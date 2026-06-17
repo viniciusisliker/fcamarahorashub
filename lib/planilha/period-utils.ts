@@ -34,5 +34,5 @@ export function selectedMonthOverlapsPlanilha(
 }
 
 export function isPlanilhaReadOnlySource(dataSource: string): boolean {
-  return dataSource === "planilha";
+  return dataSource === "planilha" || dataSource === "supabase";
 }

@@ -38,7 +38,7 @@ Configure em `.env.local`:
 | `NEXT_PUBLIC_DATA_SOURCE` | `planilha` \| `supabase` \| `mock` | Fonte principal |
 | `NEXT_PUBLIC_USE_MOCK_DATA` | `true` \| `false` | Fallback mock quando Supabase ausente |
 
-**Planilha Tommy:** execute `npm run export-planilha` (requer Python + `pip install -r scripts/requirements.txt`).
+**Planilha Tommy:** `npm run export-planilha` → `npm run import-planilha-supabase` (grava no Supabase).
 
 ## Variáveis de ambiente
 

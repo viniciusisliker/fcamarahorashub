@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "export-planilha": "python scripts/export-planilha.py",
+    "import-planilha-supabase": "node --env-file=.env.local scripts/import-planilha-supabase.mjs",
     "validate-planilha": "python scripts/validate-unificacao.py"
   },
   "dependencies": {

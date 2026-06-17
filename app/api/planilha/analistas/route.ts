@@ -1,14 +1,18 @@
-import { getAnalistasPlanilha, planilhaDisponivel } from "@/lib/data/planilha";
+import {
+  isPlanilhaDataAvailable,
+  loadAnalistasPlanilha,
+} from "@/lib/data/planilha-store";
 
 export async function GET() {
-  if (!planilhaDisponivel()) {
+  if (!(await isPlanilhaDataAvailable())) {
     return Response.json(
-      { error: "Dados da planilha não exportados. Execute scripts/export-planilha.py" },
+      { error: "Dados da planilha indisponíveis. Execute npm run import-planilha-supabase" },
       { status: 404 }
     );
   }
 
-  return Response.json(getAnalistasPlanilha(), {
-    headers: { "X-Data-Source": "planilha" },
+  const analistas = await loadAnalistasPlanilha();
+  return Response.json(analistas, {
+    headers: { "X-Data-Source": process.env.NEXT_PUBLIC_DATA_SOURCE ?? "planilha" },
   });
 }

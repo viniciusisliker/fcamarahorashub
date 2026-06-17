@@ -26,37 +26,46 @@ gh repo create fcamarahorashub --public --source=. --remote=origin --push
 
 ## 2. Supabase
 
-> **Cota free:** se aparecer erro de limite de projetos, pause ou exclua um projeto antigo no [dashboard](https://supabase.com/dashboard) antes de criar **fcamarahorashub**.
+Projeto: **fcamarahorashub** — ref `kjfwstmxldxbbuwmjtji` — [dashboard](https://supabase.com/dashboard/project/kjfwstmxldxbbuwmjtji)
 
-1. Criar projeto **fcamarahorashub** no [dashboard](https://supabase.com/dashboard) (região `sa-east-1` recomendada).
-2. Instalar CLI: `npm i -g supabase` (ou usar MCP Supabase no Cursor).
-3. Vincular: `supabase link --project-ref <project-ref>`
-4. Aplicar migrations: `supabase db push`
-5. Copiar URL e **anon/publishable key** para o Vercel.
+1. Instalar CLI: `npm i -g supabase`
+2. Vincular: `supabase link --project-ref kjfwstmxldxbbuwmjtji`
+3. Aplicar migrations: `supabase db push`
+4. Copiar do dashboard → Settings → API:
+   - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
+   - **anon public** → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - **service_role** → `SUPABASE_SERVICE_ROLE_KEY` (só servidor / import)
 
-Schema inicial: `supabase/migrations/20250601000000_apontamentos.sql`
+### Importar dados da planilha Tommy
+
+Após `export-planilha` (ou com JSON já em `data/planilha/`):
+
+```powershell
+copy .env.example .env.local
+# Preencher URL + service_role em .env.local
+npm run import-planilha-supabase
+```
+
+Isso carrega `apontamentos`, `planilha_analistas`, `planilha_unificacao` e `planilha_meta` no Postgres. Repita após cada nova extração.
+
+Migrations: `supabase/migrations/` (apontamentos + tabelas planilha).
 
 ## 3. Vercel
 
-1. Importar repositório **fcamarahorashub** em [vercel.com/new](https://vercel.com/new).
-2. Nome do projeto: **fcamarahorashub**.
-3. Framework: Next.js (detectado automaticamente).
-4. Variáveis de ambiente:
+1. Projeto **fcamarahorashub** → [ftimesheethub.vercel.app](https://ftimesheethub.vercel.app)
+2. **Environment Variables** (Production):
 
-**Produção (Vercel):** já definidas em [`vercel.json`](../vercel.json) (`NEXT_PUBLIC_USE_MOCK_DATA=false` + credenciais Supabase). Novo deploy aplica automaticamente.
+| Variável | Valor |
+|----------|--------|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://kjfwstmxldxbbuwmjtji.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | chave anon do dashboard |
+| `NEXT_PUBLIC_DATA_SOURCE` | `supabase` (também em `vercel.json`) |
+| `NEXT_PUBLIC_USE_MOCK_DATA` | `false` (também em `vercel.json`) |
+| `NEXT_PUBLIC_SITE_URL` | `https://ftimesheethub.vercel.app` |
 
-**Local / CI:**
+`SUPABASE_SERVICE_ROLE_KEY` **não** vai na Vercel — só localmente para `import-planilha-supabase`.
 
-| Variável | Descrição |
-|----------|-----------|
-| `NEXT_PUBLIC_USE_MOCK_DATA` | `true` (padrão em `.env.example` e GitHub Actions) |
-| `NEXT_PUBLIC_SUPABASE_URL` | Só se testar Supabase localmente |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave anon (pública; protegida por RLS) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Não** — apenas rotas server/admin |
-
-\** Nunca expor ao browser.
-
-5. Deploy: push na `main` dispara build automático.
+3. Deploy: push na `main` dispara build automático.
 
 ## 4. Integração Vercel ↔ Supabase
 
@@ -72,6 +81,6 @@ Opcional: instalar integração [Supabase no Vercel Marketplace](https://vercel.
 
 ## Estado atual
 
-- UI completa; **produção** consome Supabase quando `NEXT_PUBLIC_USE_MOCK_DATA=false`.
-- Local/CI usam mock por padrão (`NEXT_PUBLIC_USE_MOCK_DATA=true`).
-- Schema + seed: `supabase/migrations/` (5 registros demo).
+- **Produção:** `NEXT_PUBLIC_DATA_SOURCE=supabase` — dados da extração Tommy no Postgres.
+- **Import:** `npm run import-planilha-supabase` após export da planilha.
+- **Manter projeto ativo:** tráfego real do hub + reimport periódico evitam pausa no plano free.
