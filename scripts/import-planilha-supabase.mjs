@@ -1,11 +1,10 @@
 /**
  * Importa data/planilha/*.json para o Supabase (fcamarahorashub).
  *
- * Requer em .env.local:
- *   NEXT_PUBLIC_SUPABASE_URL
- *   SUPABASE_SERVICE_ROLE_KEY
+ * Requer NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY
+ * (variáveis de ambiente ou arquivo .env.local na raiz).
  *
- * Uso: node --env-file=.env.local scripts/import-planilha-supabase.mjs
+ * Uso: npm run import-planilha-supabase
  */
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "fs";
@@ -13,6 +12,23 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, "..");
+
+function loadEnvLocal() {
+  const path = join(ROOT, ".env.local");
+  if (!existsSync(path)) return;
+  for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const value = trimmed.slice(eq + 1).trim();
+    if (!process.env[key]) process.env[key] = value;
+  }
+}
+
+loadEnvLocal();
 const DATA_DIR = join(__dirname, "..", "data", "planilha");
 const BATCH = 400;
 
